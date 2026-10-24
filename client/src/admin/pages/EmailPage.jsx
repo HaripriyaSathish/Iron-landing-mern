@@ -91,7 +91,7 @@ export default function EmailPage() {
         }
       />
 
-      <div className="grid-2 grid-2--wide-left">
+      <div className="grid-2 grid-2--stretch">
         <div className="stack">
           <Card title="Email server (SMTP)" subtitle="Pick your provider to fill the server and port, then add your login.">
             <div className="preset-row">
@@ -114,11 +114,11 @@ export default function EmailPage() {
                 <Info size={16} /> {hint}
               </p>
             )}
-            <div className="row-2">
+            <div className="row-2 row-2--server">
               <Field label="SMTP server">
                 <input className="input" value={form.smtp_host} onChange={set('smtp_host')} placeholder="smtp.gmail.com" />
               </Field>
-              <Field label="Port" hint="587 or 465 · 2525 for Render free plan">
+              <Field label="Port" hint="2525 on Render free">
                 <input className="input" inputMode="numeric" value={form.smtp_port} onChange={set('smtp_port')} />
               </Field>
             </div>
@@ -149,23 +149,9 @@ export default function EmailPage() {
               </div>
             </Field>
           </Card>
-
-          <Card title="Sender & recipient">
-            <div className="row-2">
-              <Field label="Send from (email)" hint="Usually the same as the username">
-                <input className="input" type="email" value={form.from_email} onChange={set('from_email')} />
-              </Field>
-              <Field label="Sender name">
-                <input className="input" value={form.from_name} onChange={set('from_name')} />
-              </Field>
-            </div>
-            <Field label="Send alerts to" hint="Who gets the “password changed” email">
-              <input className="input" type="email" value={form.alert_email} onChange={set('alert_email')} />
-            </Field>
-          </Card>
         </div>
 
-        <div className="stack">
+        <div className="stack stack--fill-last">
           <Card title="Alerts">
             <div className="switch-row">
               <Toggle
@@ -192,18 +178,18 @@ export default function EmailPage() {
             <p className="field__hint">Saves what is on screen, then sends a test to the “Send alerts to” address.</p>
           </Card>
 
-          <Card title="Good to know">
-            <ul className="tips">
-              <li>
-                <strong>Gmail:</strong> turn on 2-Step Verification, then create an App password at
-                myaccount.google.com/apppasswords and paste it as the password.
-              </li>
-              <li>
-                <strong>Render free plan</strong> blocks ports 465 and 587. Use a provider with port 2525 (like Brevo) there,
-                or any port on a paid plan.
-              </li>
-              <li>If an email can’t be sent, the password change still goes through.</li>
-            </ul>
+          <Card title="Sender & recipient">
+            <div className="row-2">
+              <Field label="Send from (email)" hint="Usually the same as the username">
+                <input className="input" type="email" value={form.from_email} onChange={set('from_email')} />
+              </Field>
+              <Field label="Sender name">
+                <input className="input" value={form.from_name} onChange={set('from_name')} />
+              </Field>
+            </div>
+            <Field label="Send alerts to" hint="Who gets the “password changed” email">
+              <input className="input" type="email" value={form.alert_email} onChange={set('alert_email')} />
+            </Field>
           </Card>
         </div>
       </div>

@@ -1727,6 +1727,28 @@ a.link-test:hover {
 }
 
 /* ───────── Email Alerts ───────── */
+/* Equal-height columns: the single left card and the right stack end on the same line */
+.grid-2--stretch {
+  align-items: stretch;
+}
+
+.grid-2--stretch > .stack > .card:only-child {
+  height: 100%;
+}
+
+/* Server name gets the room; the port only needs a few digits */
+.row-2--server {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+}
+
+.stack--fill-last {
+  grid-template-rows: auto 1fr;
+}
+
+.status-box + .btn {
+  margin-top: 4px;
+}
+
 .preset-row {
   display: flex;
   flex-wrap: wrap;
@@ -1795,20 +1817,6 @@ a.link-test:hover {
 .status-box svg {
   flex-shrink: 0;
   margin-top: 1px;
-}
-
-.tips {
-  display: grid;
-  gap: 10px;
-  margin: 0;
-  padding-left: 18px;
-  font-size: 13.5px;
-  line-height: 1.55;
-  color: var(--a-muted);
-}
-
-.tips strong {
-  color: var(--a-ink);
 }
 
 /* ───────── Slides ───────── */
