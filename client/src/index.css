@@ -1,0 +1,41 @@
+:root {
+  --maroon: #741f3f;
+  --gold: #caa55e;
+  --cream: #f9f3e9;
+  --ink: #262221;
+
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Mulish', system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  /* Safety net against sideways scroll on phones; `clip` keeps sticky headers working */
+  overflow-x: clip;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
