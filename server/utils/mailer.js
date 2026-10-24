@@ -12,9 +12,9 @@ export const isEmail = (value) => EMAIL_RE.test(String(value ?? ""));
 // What still needs filling in before email can go out (empty = ready)
 export function missingMailFields(settings) {
   const missing = [];
-  if (!settings?.smtp_host) missing.push("SMTP server");
-  if (!settings?.smtp_user) missing.push("username");
-  if (!decrypt(settings?.smtp_pass_enc)) missing.push("password");
+  if (!settings?.smtp_host) missing.push("mail server address");
+  if (!settings?.smtp_user) missing.push("email address (login)");
+  if (!decrypt(settings?.smtp_pass_enc)) missing.push("email app password");
   if (!isEmail(settings?.from_email)) missing.push("sender email");
   if (!isEmail(settings?.alert_email)) missing.push("alert email");
   return missing;

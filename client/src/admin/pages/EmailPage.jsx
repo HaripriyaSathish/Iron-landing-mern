@@ -6,9 +6,9 @@ import { Button, Card, Field, PageHeader, PageLoader, Toggle } from '../componen
 
 // One-click server settings for common providers
 const PRESETS = [
-  { name: 'Gmail', host: 'smtp.gmail.com', port: 587, hint: 'Username = your Gmail address. Password = a Google "App password", not your normal password.' },
-  { name: 'Brevo', host: 'smtp-relay.brevo.com', port: 2525, hint: 'Username and password are under Brevo → SMTP & API. Port 2525 also works on Render’s free plan.' },
-  { name: 'Outlook', host: 'smtp-mail.outlook.com', port: 587, hint: 'Username = your Outlook address.' },
+  { name: 'Gmail', host: 'smtp.gmail.com', port: 587, hint: 'Email address = your Gmail address. App password = the 16-letter code from myaccount.google.com/apppasswords (turn on 2-Step Verification first). Do not use your normal Gmail password.' },
+  { name: 'Brevo', host: 'smtp-relay.brevo.com', port: 2525, hint: 'Login and password are shown in Brevo under SMTP & API. Port 2525 also works on Render’s free plan.' },
+  { name: 'Outlook', host: 'smtp-mail.outlook.com', port: 587, hint: 'Email address = your Outlook address. App password = your Outlook password or app password.' },
 ]
 
 const FIELDS = ['smtp_host', 'smtp_port', 'smtp_user', 'from_email', 'from_name', 'alert_email']
@@ -83,7 +83,7 @@ export default function EmailPage() {
       <PageHeader
         icon={MailCheck}
         title="Email Alerts"
-        subtitle="Get an email whenever the admin password is changed. Enter your email provider’s SMTP details here."
+        subtitle="Get an email whenever the admin password is changed. Below, enter the email account that should send these alerts."
         action={
           <Button type="submit" icon={Save} loading={saving}>
             Save settings
@@ -93,7 +93,7 @@ export default function EmailPage() {
 
       <div className="grid-2 grid-2--stretch">
         <div className="stack">
-          <Card title="Email server (SMTP)" subtitle="Pick your provider to fill the server and port, then add your login.">
+          <Card title="Email account that sends the alerts" subtitle="Choose your email provider, then type that email account's login details.">
             <div className="preset-row">
               {PRESETS.map((p) => (
                 <button
@@ -115,19 +115,23 @@ export default function EmailPage() {
               </p>
             )}
             <div className="row-2 row-2--server">
-              <Field label="SMTP server">
+              <Field label="Mail server address">
                 <input className="input" value={form.smtp_host} onChange={set('smtp_host')} placeholder="smtp.gmail.com" />
               </Field>
-              <Field label="Port" hint="2525 on Render free">
+              <Field label="Port number" hint="2525 on Render free">
                 <input className="input" inputMode="numeric" value={form.smtp_port} onChange={set('smtp_port')} />
               </Field>
             </div>
-            <Field label="Username">
+            <Field label="Email address (login)" hint="The email account that sends the alerts, e.g. yourname@gmail.com">
               <input className="input" autoComplete="off" value={form.smtp_user} onChange={set('smtp_user')} />
             </Field>
             <Field
-              label="Password"
-              hint={saved.has_password ? 'A password is saved (hidden). Leave empty to keep it.' : 'Stored encrypted. It is never shown again.'}
+              label="Email app password"
+              hint={
+                saved.has_password
+                  ? 'Already saved (hidden for safety). Leave empty to keep it.'
+                  : 'Not your admin password. For Gmail: the 16-letter App password from Google, not your normal Gmail password. Saved securely and never shown again.'
+              }
             >
               <div className="input-wrap">
                 <input
@@ -178,16 +182,16 @@ export default function EmailPage() {
             <p className="field__hint">Saves what is on screen, then sends a test to the “Send alerts to” address.</p>
           </Card>
 
-          <Card title="Sender & recipient">
+          <Card title="Who sends and who receives">
             <div className="row-2">
-              <Field label="Send from (email)" hint="Usually the same as the username">
+              <Field label="Sender email" hint="Usually the same email address as above">
                 <input className="input" type="email" value={form.from_email} onChange={set('from_email')} />
               </Field>
               <Field label="Sender name">
                 <input className="input" value={form.from_name} onChange={set('from_name')} />
               </Field>
             </div>
-            <Field label="Send alerts to" hint="Who gets the “password changed” email">
+            <Field label="Send alerts to" hint="This inbox gets the “admin password changed” email">
               <input className="input" type="email" value={form.alert_email} onChange={set('alert_email')} />
             </Field>
           </Card>
