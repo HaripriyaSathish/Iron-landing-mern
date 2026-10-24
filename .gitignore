@@ -1,0 +1,7 @@
+# Secrets: real values live in .env files locally and in Render's Environment settings
+.env
+.env.*
+!.env.example
+
+node_modules/
+dist/

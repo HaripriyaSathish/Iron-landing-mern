@@ -2,7 +2,8 @@ import axios from 'axios'
 
 export const TOKEN_KEY = 'imk_admin_token'
 
-const api = axios.create({ baseURL: import.meta.env.VITE_API_URL })
+// Locally VITE_API_URL points at the dev server; on Render the site and API share one address, so "/api"
+const api = axios.create({ baseURL: import.meta.env.VITE_API_URL || '/api' })
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem(TOKEN_KEY)

@@ -237,4 +237,19 @@ const schema = [
   )`,
 ];
 
+// The DDL above is MySQL; Neon (Postgres) gets the same tables with these swaps.
+export function toPostgresDDL(sql) {
+  return sql
+    .replace(/INT AUTO_INCREMENT PRIMARY KEY/g, "SERIAL PRIMARY KEY")
+    .replace(/TINYINT UNSIGNED/g, "SMALLINT")
+    .replace(/TINYINT/g, "SMALLINT")
+    .replace(/INT UNSIGNED/g, "INTEGER")
+    .replace(/TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP/g, "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP")
+    .replace(/TIMESTAMP DEFAULT CURRENT_TIMESTAMP/g, "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP")
+    // type ENUM('a','b') → type VARCHAR(20) CHECK (type IN ('a','b'))
+    .replace(/(\w+) ENUM\(([^)]*)\)/g, "$1 VARCHAR(20) CHECK ($1 IN ($2))");
+}
+
+export const schemaFor = (dialect) => (dialect === "postgres" ? schema.map(toPostgresDDL) : schema);
+
 export default schema;

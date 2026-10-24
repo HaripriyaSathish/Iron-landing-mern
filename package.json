@@ -1,0 +1,13 @@
+{
+  "name": "iron-landing",
+  "private": true,
+  "description": "Iron Me Ka landing page + admin panel, deployed as one website (Express serves the built React app)",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "npm install --prefix server && npm install --include=dev --prefix client && npm run build --prefix client",
+    "start": "npm start --prefix server",
+    "db:init": "npm run db:init --prefix server"
+  }
+}

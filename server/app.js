@@ -1,3 +1,6 @@
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -35,6 +38,17 @@ app.use("/api/how-it-works", howRoutes);
 app.use("/api/testimonials", testimonialsRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/footer", footerRoutes);
+
+// One website: when the React app has been built (on Render), serve it from here too.
+// Any non-API page (/, /admin, /admin/menu ...) gets index.html and React Router takes over.
+const clientDist = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../client/dist");
+if (fs.existsSync(clientDist)) {
+  app.use(express.static(clientDist, { index: false, maxAge: "7d" }));
+  app.use((req, res, next) => {
+    if (req.method !== "GET" || req.path.startsWith("/api")) return next();
+    res.sendFile(path.join(clientDist, "index.html"));
+  });
+}
 
 app.use(notFound);
 app.use(errorHandler);
