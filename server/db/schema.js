@@ -235,6 +235,21 @@ const schema = [
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   )`,
+
+  // Single-row table (id is always 1). SMTP settings entered in the admin panel; password stored encrypted.
+  `CREATE TABLE IF NOT EXISTS mail_settings (
+    id TINYINT PRIMARY KEY DEFAULT 1,
+    enabled BOOLEAN NOT NULL DEFAULT FALSE,
+    smtp_host VARCHAR(150) NULL,
+    smtp_port INT NOT NULL DEFAULT 587,
+    smtp_user VARCHAR(150) NULL,
+    smtp_pass_enc TEXT NULL,
+    from_email VARCHAR(150) NULL,
+    from_name VARCHAR(80) NULL,
+    alert_email VARCHAR(150) NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT mail_single_row CHECK (id = 1)
+  )`,
 ];
 
 // The DDL above is MySQL; Neon (Postgres) gets the same tables with these swaps.

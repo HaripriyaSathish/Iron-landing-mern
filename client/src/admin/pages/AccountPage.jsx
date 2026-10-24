@@ -20,9 +20,10 @@ export default function AccountPage() {
     if (form.newPassword !== form.confirm) return toast('New passwords do not match', 'error')
     setSaving(true)
     try {
-      await api.put('/auth/password', { currentPassword: form.currentPassword, newPassword: form.newPassword })
+      const res = await api.put('/auth/password', { currentPassword: form.currentPassword, newPassword: form.newPassword })
       setForm(empty)
-      toast('Password changed')
+      const { emailSent, emailTo } = res.data.data ?? {}
+      toast(emailSent ? `Password changed. Confirmation sent to ${emailTo}` : 'Password changed')
     } catch (err) {
       toast(errorMessage(err), 'error')
     } finally {
@@ -34,7 +35,10 @@ export default function AccountPage() {
     <>
       <PageHeader icon={KeyRound} title="My Account" subtitle={`Signed in as ${admin.email}`} />
       <form onSubmit={save} className="narrow">
-        <Card title="Change password" subtitle="Use at least 8 characters.">
+        <Card
+          title="Change password"
+          subtitle="Use at least 8 characters. A confirmation email is sent if Email Alerts are switched on."
+        >
           <Field label="Current password">
             <input
               className="input"

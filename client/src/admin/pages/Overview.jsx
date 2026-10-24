@@ -18,6 +18,7 @@ const ENDPOINTS = {
   '/admin/reviews': '/testimonials/admin',
   '/admin/contact': '/contact',
   '/admin/footer': '/footer/admin',
+  '/admin/email': '/mail-settings',
 }
 
 // One short status line per section card
@@ -62,6 +63,8 @@ function summarize(path, data) {
         ? { text: `${generic} social links need your profile address`, warn: true }
         : { text: `${data.socials.filter((s) => s.is_active).length} social links live` }
     }
+    case '/admin/email':
+      return data.enabled ? { text: `Alerts go to ${data.alert_email}` } : { text: 'Alerts are off', warn: true }
     default:
       return null
   }

@@ -1726,6 +1726,91 @@ a.link-test:hover {
   }
 }
 
+/* ───────── Email Alerts ───────── */
+.preset-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.preset {
+  padding: 8px 16px;
+  border: 1.5px solid var(--a-line);
+  border-radius: 999px;
+  background: #fffdf9;
+  color: var(--a-ink);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.preset:hover {
+  border-color: var(--a-gold);
+}
+
+.preset.is-active {
+  border-color: var(--a-maroon);
+  background: var(--a-maroon);
+  color: #fff;
+}
+
+.note {
+  display: flex;
+  gap: 8px;
+  margin: -4px 0 16px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--a-gold-soft);
+  color: #6b4f17;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.note svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.status-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 16px 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #fdf3e2;
+  color: #8a6420;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.status-box.is-ok {
+  background: #e9f3ec;
+  color: var(--a-success);
+}
+
+.status-box svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.tips {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--a-muted);
+}
+
+.tips strong {
+  color: var(--a-ink);
+}
+
 /* ───────── Slides ───────── */
 .slides {
   display: grid;

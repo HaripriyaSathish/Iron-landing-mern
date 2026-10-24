@@ -16,10 +16,13 @@ import howRoutes from "./routes/how.routes.js";
 import testimonialsRoutes from "./routes/testimonials.routes.js";
 import contactRoutes from "./routes/contact.routes.js";
 import footerRoutes from "./routes/footer.routes.js";
+import mailSettingsRoutes from "./routes/mailSettings.routes.js";
 import { notFound, errorHandler } from "./middleware/error.js";
 dotenv.config();
 
 const app = express();
+// Behind Render's proxy: lets req.ip show the visitor's address (used in security alert emails)
+app.set("trust proxy", 1);
 
 app.use(cors({ origin: process.env.CLIENT_URL }));
 app.use(express.json());
@@ -38,6 +41,7 @@ app.use("/api/how-it-works", howRoutes);
 app.use("/api/testimonials", testimonialsRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/footer", footerRoutes);
+app.use("/api/mail-settings", mailSettingsRoutes);
 
 // One website: when the React app has been built (on Render), serve it from here too.
 // Any non-API page (/, /admin, /admin/menu ...) gets index.html and React Router takes over.

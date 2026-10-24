@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "npm install --prefix server && npm install --include=dev --prefix client && npm run build --prefix client",
-    "start": "npm start --prefix server",
+    "start": "npm run db:init --prefix server && npm start --prefix server",
     "db:init": "npm run db:init --prefix server"
   }
 }

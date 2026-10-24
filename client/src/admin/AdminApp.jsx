@@ -17,6 +17,7 @@ import ProcessPage from './pages/ProcessPage'
 import TestimonialsPage from './pages/TestimonialsPage'
 import ContactPage from './pages/ContactPage'
 import FooterPage from './pages/FooterPage'
+import EmailPage from './pages/EmailPage'
 import AccountPage from './pages/AccountPage'
 import './admin.css'
 
@@ -44,6 +45,7 @@ export default function AdminApp() {
             <Route path="reviews" element={<TestimonialsPage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="footer" element={<FooterPage />} />
+            <Route path="email" element={<EmailPage />} />
             <Route path="account" element={<AccountPage />} />
             <Route path="*" element={<Navigate to="/admin" replace />} />
           </Route>

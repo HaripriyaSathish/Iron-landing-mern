@@ -190,3 +190,11 @@ export const socialLinks = [
   { platform: "facebook", url: "https://www.facebook.com/" },
   { platform: "youtube", url: "https://www.youtube.com/" },
 ];
+
+// Email alerts start switched off; SMTP details are entered in the admin panel
+export const mailSettings = {
+  enabled: false,
+  smtp_port: 587,
+  from_name: "Iron Me Ka",
+  alert_email: "ironmeka605@gmail.com",
+};

@@ -5,6 +5,7 @@ import {
   Images,
   LayoutDashboard,
   LayoutTemplate,
+  MailCheck,
   MessageCircleHeart,
   MessageSquareQuote,
   PanelBottom,
@@ -27,6 +28,7 @@ export const groups = [
       { path: '/admin/menu', icon: Compass, title: 'Navbar & Menu', hint: 'Logo, links & top button' },
       { path: '/admin/quick-connect', icon: MessageCircleHeart, title: 'Floating Buttons', hint: 'Call, WhatsApp & email' },
       { path: '/admin/footer', icon: PanelBottom, title: 'Footer', hint: 'Intro, socials & copyright' },
+      { path: '/admin/email', icon: MailCheck, title: 'Email Alerts', hint: 'SMTP & password alerts' },
     ],
   },
   {
