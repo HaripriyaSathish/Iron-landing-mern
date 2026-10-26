@@ -35,8 +35,9 @@ function useActiveSection(targets) {
   return active
 }
 
-// Switches the header to the ☰ menu on narrow screens, and also whenever the menu doesn't fit on one
-// line (longer words, e.g. in Tamil). Set as a data attribute, which React leaves alone between renders.
+// On narrow screens the header uses the ☰ menu. On wider ones, when the menu doesn't fit on one line
+// (longer words, e.g. in Tamil), the top button is dropped first (the hero has the same one), and only
+// if that isn't enough does it switch to ☰. Set as data attributes, which React leaves alone between renders.
 function useCompactHeader(ref, contentKey) {
   useLayoutEffect(() => {
     const header = ref.current
@@ -47,8 +48,16 @@ function useCompactHeader(ref, contentKey) {
       // Transitions are off meanwhile and the final state is applied before they come back on.
       header.dataset.measuring = ''
       delete header.dataset.compact
-      const tooWide = inner.scrollWidth > inner.clientWidth + 1
-      if (tooWide || window.innerWidth <= 980) header.dataset.compact = ''
+      delete header.dataset.slim
+      const tooWide = () => inner.scrollWidth > inner.clientWidth + 1
+      if (window.innerWidth <= 980) header.dataset.compact = ''
+      else if (tooWide()) {
+        header.dataset.slim = ''
+        if (tooWide()) {
+          delete header.dataset.slim
+          header.dataset.compact = ''
+        }
+      }
       void inner.offsetWidth
       delete header.dataset.measuring
     }

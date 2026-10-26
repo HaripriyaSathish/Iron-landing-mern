@@ -408,6 +408,11 @@
   transition: none !important;
 }
 
+/* Slim header: menu kept, top button dropped to make room */
+.header[data-slim] .header__cta {
+  display: none;
+}
+
 /* Compact header (☰ menu): phones and tablets, and wider screens when the menu words don't fit
    on one line (e.g. Tamil). Header.jsx sets data-compact. */
 .header[data-compact] .header__nav {
@@ -1508,7 +1513,17 @@ html:lang(ta) .site h3 {
 }
 
 html:lang(ta) .hero h1 {
-  font-size: clamp(28px, 3.2vw, 44px);
+  max-width: 640px;
+  font-size: clamp(28px, 3vw, 42px);
+}
+
+/* Slightly tighter menu so the Tamil words fit on one line on laptops */
+html:lang(ta) .header__nav {
+  gap: 26px;
+}
+
+html:lang(ta) .header__nav a:not(.site-btn) {
+  font-size: 15px;
 }
 
 html:lang(ta) .s-heading h2,
@@ -1590,12 +1605,24 @@ html:lang(ta) .book__info small {
     margin: 15px auto 40px;
   }
 
+  /* minmax(0, …): long words (e.g. Tamil buttons) must not stretch the card past the screen */
   .book {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
 @media (max-width: 640px) {
+  /* Long button text (other languages) wraps onto two lines instead of running off the screen */
+  .site-btn {
+    height: auto;
+    min-height: 48px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.35;
+  }
+
   /* Short code (TA, FR) keeps the phone header on one line */
   .lang__btn {
     padding: 0 12px;
