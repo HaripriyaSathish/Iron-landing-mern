@@ -198,3 +198,10 @@ export const mailSettings = {
   from_name: "Iron Me Ka",
   alert_email: "ironmeka605@gmail.com",
 };
+
+// English is the default: it is what the normal admin pages hold. Tamil and French texts are added on the Languages page.
+export const languages = [
+  { code: "en", name: "English", native_name: "English", is_default: true },
+  { code: "ta", name: "Tamil", native_name: "தமிழ்", is_default: false },
+  { code: "fr", name: "French", native_name: "Français", is_default: false },
+];

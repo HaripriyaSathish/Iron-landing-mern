@@ -6,7 +6,10 @@ import { getAboutSection, updateAboutSection, AboutHighlight } from "../models/a
 // Public: section text + visible highlight cards
 export async function getAbout(req, res) {
   const [section, highlights] = await Promise.all([getAboutSection(), AboutHighlight.findAll({ activeOnly: true })]);
-  res.json({ success: true, data: { section, highlights } });
+  res.json({
+    success: true,
+    data: { section: req.translate("about_section", section), highlights: req.translate("about_highlights", highlights) },
+  });
 }
 
 // Admin: includes hidden highlights

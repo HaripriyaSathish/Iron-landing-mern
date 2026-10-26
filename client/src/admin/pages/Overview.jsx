@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, ImageOff, LayoutDashboard } from 'lucide-react'
 import api from '../../lib/api'
 import sections from '../sections'
+import { percent } from '../utils'
 import { useAuth } from '../AuthContext'
 import { PageHeader } from '../components/ui'
 
@@ -19,6 +20,7 @@ const ENDPOINTS = {
   '/admin/contact': '/contact',
   '/admin/footer': '/footer/admin',
   '/admin/email': '/mail-settings',
+  '/admin/languages': '/languages/admin',
 }
 
 // One short status line per section card
@@ -65,6 +67,14 @@ function summarize(path, data) {
     }
     case '/admin/email':
       return data.enabled ? { text: `Alerts go to ${data.alert_email}` } : { text: 'Alerts are off', warn: true }
+    case '/admin/languages': {
+      const extra = data.filter((l) => !l.is_default && l.is_active)
+      if (!extra.length) return { text: 'Only the main language is on' }
+      const empty = extra.filter((l) => l.progress.done === 0)
+      return empty.length
+        ? { text: `${empty.map((l) => l.name).join(' & ')} still need content`, warn: true }
+        : { text: extra.map((l) => `${l.name} ${percent(l.progress)}%`).join(' · ') }
+    }
     default:
       return null
   }

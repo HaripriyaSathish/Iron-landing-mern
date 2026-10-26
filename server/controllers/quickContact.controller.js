@@ -12,7 +12,7 @@ function validate(type, value) {
 }
 
 export async function getContacts(req, res) {
-  res.json({ success: true, data: await QuickContact.findAll({ activeOnly: true }) });
+  res.json({ success: true, data: req.translate("quick_contacts", await QuickContact.findAll({ activeOnly: true })) });
 }
 
 export async function getContactsAdmin(req, res) {

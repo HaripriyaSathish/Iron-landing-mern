@@ -19,7 +19,10 @@ export async function getTestimonials(req, res) {
     getTestimonialsSection(),
     Testimonial.findAll({ activeOnly: true }),
   ]);
-  res.json({ success: true, data: { section, testimonials } });
+  res.json({
+    success: true,
+    data: { section: req.translate("testimonials_section", section), testimonials: req.translate("testimonials", testimonials) },
+  });
 }
 
 // Admin: includes hidden testimonials

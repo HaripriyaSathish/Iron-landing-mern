@@ -32,8 +32,9 @@ export default function Footer({ data }) {
         <nav className="footer__col" aria-label={settings.links_title} data-reveal="up" style={revealDelay(1)}>
           <h3>{settings.links_title}</h3>
           <ul>
-            {links.map((l) => (
-              <li key={l.target + l.label}>
+            {links.map((l, i) => (
+              // Index key: the label changes with the language and must not remount the row
+              <li key={`${i}-${l.target}`}>
                 <a href={l.target}>{l.label}</a>
               </li>
             ))}

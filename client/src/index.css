@@ -4,8 +4,9 @@
   --cream: #f9f3e9;
   --ink: #262221;
 
-  --font-heading: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Mulish', system-ui, sans-serif;
+  /* Noto fills in Tamil letters (the brand fonts only cover Latin); only downloaded when Tamil text shows */
+  --font-heading: 'Cormorant Garamond', 'Noto Serif Tamil', Georgia, serif;
+  --font-body: 'Mulish', 'Noto Sans Tamil', system-ui, sans-serif;
 }
 
 *,

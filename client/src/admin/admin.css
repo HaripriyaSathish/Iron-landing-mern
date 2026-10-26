@@ -2431,3 +2431,264 @@ a.link-test:hover {
     padding: 18px;
   }
 }
+
+/* ───────── Languages ───────── */
+.btn--sm {
+  padding: 7px 14px;
+  font-size: 13.5px;
+  text-decoration: none;
+}
+
+.lang-code {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: var(--a-maroon);
+  color: var(--a-gold);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lang-row .list-row__main small {
+  white-space: normal;
+}
+
+.lang-native {
+  font-weight: 600;
+  color: var(--a-muted);
+}
+
+.lang-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.lang-progress small {
+  white-space: nowrap;
+}
+
+.lang-progress__bar {
+  display: block;
+  flex: 1;
+  max-width: 180px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--a-line);
+  overflow: hidden;
+}
+
+.lang-progress__bar > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--a-gold), var(--a-maroon));
+  transition: width 0.4s ease;
+}
+
+.lang-progress__bar--lg {
+  max-width: none;
+  height: 10px;
+  margin-top: 10px;
+}
+
+.lang-main-pill {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--a-gold-soft);
+  color: #7b5a1c;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+a.preset {
+  text-decoration: none;
+}
+
+.tr-summary__top {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.tr-summary__top > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.tr-summary__pct {
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--a-maroon);
+}
+
+.tr-summary__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.tr-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tr-jump__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border: 1px solid var(--a-line);
+  border-radius: 999px;
+  background: #fffdf9;
+  color: var(--a-ink);
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: border-color 0.2s ease;
+}
+
+.tr-jump__link:hover {
+  border-color: var(--a-gold);
+}
+
+.tr-jump__link small {
+  color: var(--a-muted);
+  font-weight: 600;
+}
+
+.tr-jump__link.is-done {
+  border-color: #bfdcc8;
+  background: #eef6f0;
+  color: var(--a-success);
+}
+
+/* Section heading clears the sticky top bar when jumped to */
+.tr-group {
+  scroll-margin-top: 80px;
+}
+
+.tr-block + .tr-block {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px dashed var(--a-line);
+}
+
+.tr-block__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  font-size: 15px;
+  color: var(--a-maroon);
+}
+
+.tr-block__hidden {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--a-line);
+  color: var(--a-muted);
+  font-size: 11.5px;
+}
+
+.tr-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.tr-row:last-child {
+  margin-bottom: 0;
+}
+
+.tr-row__source p {
+  margin: 0;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: var(--a-cream);
+  color: var(--a-muted);
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.tr-row__target {
+  display: block;
+}
+
+.tr-row__ok {
+  color: var(--a-success);
+}
+
+.tr-row.is-changed .input {
+  border-color: var(--a-gold);
+  background: #fffaf0;
+}
+
+/* Tamil and other scripts fall back to Noto when the brand fonts don't have the letters */
+.tr-row .input {
+  font-family: var(--font-body), 'Noto Sans Tamil', sans-serif;
+}
+
+.tr-save {
+  position: sticky;
+  bottom: 16px;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 28px;
+  padding: 12px 12px 12px 22px;
+  border: 1px solid var(--a-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 34px rgba(38, 34, 33, 0.14);
+  font-weight: 700;
+  color: var(--a-muted);
+}
+
+.tr-save.is-dirty {
+  border-color: var(--a-gold);
+  color: var(--a-maroon);
+}
+
+@media (max-width: 600px) {
+  .lang-row .lang-code {
+    display: none;
+  }
+
+  .lang-row__edit {
+    order: 5;
+    width: 100%;
+  }
+
+  .tr-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .tr-summary__pct {
+    font-size: 30px;
+  }
+
+  .tr-save {
+    border-radius: 16px;
+    padding: 10px 10px 10px 16px;
+    font-size: 13.5px;
+  }
+}

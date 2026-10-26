@@ -5,7 +5,10 @@ import { getWhySection, updateWhySection, WhyFeature } from "../models/why.model
 // Public: section heading + visible feature cards
 export async function getWhy(req, res) {
   const [section, features] = await Promise.all([getWhySection(), WhyFeature.findAll({ activeOnly: true })]);
-  res.json({ success: true, data: { section, features } });
+  res.json({
+    success: true,
+    data: { section: req.translate("why_section", section), features: req.translate("why_features", features) },
+  });
 }
 
 // Admin: includes hidden features

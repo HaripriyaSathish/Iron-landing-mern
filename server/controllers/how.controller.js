@@ -5,7 +5,10 @@ import { getHowSection, updateHowSection, HowStep } from "../models/how.model.js
 // Public: section heading + visible steps
 export async function getHow(req, res) {
   const [section, steps] = await Promise.all([getHowSection(), HowStep.findAll({ activeOnly: true })]);
-  res.json({ success: true, data: { section, steps } });
+  res.json({
+    success: true,
+    data: { section: req.translate("how_section", section), steps: req.translate("how_steps", steps) },
+  });
 }
 
 // Admin: includes hidden steps

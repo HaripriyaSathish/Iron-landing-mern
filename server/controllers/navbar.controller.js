@@ -6,7 +6,10 @@ import { getNavbarSettings, updateNavbarSettings, NavLink } from "../models/navb
 // Public: what the landing page navbar needs
 export async function getNavbar(req, res) {
   const [settings, links] = await Promise.all([getNavbarSettings(), NavLink.findAll({ activeOnly: true })]);
-  res.json({ success: true, data: { settings, links } });
+  res.json({
+    success: true,
+    data: { settings: req.translate("navbar_settings", settings), links: req.translate("nav_links", links) },
+  });
 }
 
 // Admin: includes hidden links

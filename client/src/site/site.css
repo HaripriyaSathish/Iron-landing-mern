@@ -259,6 +259,8 @@
 .header__nav a:not(.site-btn) {
   position: relative;
   padding: 6px 0;
+  /* One line each, so a menu that is too wide overflows (and Header.jsx switches to ☰) instead of wrapping */
+  white-space: nowrap;
   font-size: 16px;
   color: var(--ink);
   transition: color 0.2s ease;
@@ -299,6 +301,168 @@
   background: none;
   color: var(--maroon);
   cursor: pointer;
+}
+
+/* Language menu: globe button, list opens below */
+.lang {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.lang__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 42px;
+  padding: 0 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--maroon);
+  font-weight: 700;
+  font-size: 14.5px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.lang__btn:hover,
+.lang.is-open .lang__btn {
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.lang__code {
+  display: none;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.lang__chevron {
+  transition: transform 0.25s ease;
+}
+
+.lang.is-open .lang__chevron {
+  transform: rotate(180deg);
+}
+
+.lang__menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 60;
+  min-width: 180px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 24px 40px -20px rgba(38, 34, 33, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+}
+
+.lang.is-open .lang__menu {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.lang__menu button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--ink);
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang__menu button:hover {
+  background: var(--cream);
+  color: var(--maroon);
+}
+
+.lang__menu button.is-active {
+  color: var(--maroon);
+  font-weight: 700;
+}
+
+.lang__menu svg {
+  color: var(--gold);
+}
+
+/* No animations while Header.jsx measures, so the menu doesn't flash open */
+.header[data-measuring],
+.header[data-measuring] * {
+  transition: none !important;
+}
+
+/* Compact header (☰ menu): phones and tablets, and wider screens when the menu words don't fit
+   on one line (e.g. Tamil). Header.jsx sets data-compact. */
+.header[data-compact] .header__nav {
+  position: fixed;
+  inset: var(--header-h) 0 auto 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 12px 24px 24px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 30px 40px -30px rgba(38, 34, 33, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+}
+
+.header[data-compact].is-open .header__nav {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.header[data-compact] .header__nav a:not(.site-btn) {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 17px;
+}
+
+.header[data-compact] .header__nav a:not(.site-btn)::after {
+  display: none;
+}
+
+.header[data-compact] .header__cta {
+  display: none;
+}
+
+.header[data-compact] .header__cta-mobile {
+  display: inline-flex;
+  margin-top: 20px;
+}
+
+.header[data-compact] .header__toggle {
+  display: block;
+}
+
+/* Phone header: logo · language · menu button */
+.header[data-compact] .lang {
+  margin-left: auto;
+}
+
+.header[data-compact] .lang + .header__toggle {
+  margin-left: 0;
 }
 
 /* ───────── Hero ───────── */
@@ -1334,6 +1498,42 @@
   }
 }
 
+/* ───────── Tamil ─────────
+   Tamil letters are taller and wider than the Latin brand fonts, and spaced-out capitals
+   break Tamil syllables apart: smaller headings, normal spacing. */
+html:lang(ta) .site h1,
+html:lang(ta) .site h2,
+html:lang(ta) .site h3 {
+  line-height: 1.4;
+}
+
+html:lang(ta) .hero h1 {
+  font-size: clamp(28px, 3.2vw, 44px);
+}
+
+html:lang(ta) .s-heading h2,
+html:lang(ta) .about__text h2,
+html:lang(ta) .book__main h2 {
+  font-size: clamp(24px, 2.5vw, 34px);
+}
+
+html:lang(ta) .service__body h3,
+html:lang(ta) .footer__col h3 {
+  font-size: 17px;
+}
+
+html:lang(ta) .why__card h3,
+html:lang(ta) .step h3 {
+  font-size: 19px;
+}
+
+html:lang(ta) .eyebrow,
+html:lang(ta) .about__badge span,
+html:lang(ta) .service__price small,
+html:lang(ta) .book__info small {
+  letter-spacing: 0.02em;
+}
+
 /* ───────── Responsive ───────── */
 @media (max-width: 1180px) {
   .header__nav {
@@ -1367,52 +1567,6 @@
 }
 
 @media (max-width: 980px) {
-  .header__nav {
-    position: fixed;
-    inset: var(--header-h) 0 auto 0;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    padding: 12px 24px 24px;
-    background: var(--paper);
-    border-bottom: 1px solid var(--line);
-    box-shadow: 0 30px 40px -30px rgba(38, 34, 33, 0.35);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
-  }
-
-  .header.is-open .header__nav {
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-  }
-
-  .header__nav a:not(.site-btn) {
-    padding: 14px 0;
-    border-bottom: 1px solid var(--line);
-    font-size: 17px;
-  }
-
-  .header__nav a:not(.site-btn)::after {
-    display: none;
-  }
-
-  .header__cta {
-    display: none;
-  }
-
-  .header__cta-mobile {
-    display: inline-flex;
-    margin-top: 20px;
-  }
-
-  .header__toggle {
-    display: block;
-  }
-
   .hero__content {
     padding-left: 24px;
     padding-right: 24px;
@@ -1442,6 +1596,19 @@
 }
 
 @media (max-width: 640px) {
+  /* Short code (TA, FR) keeps the phone header on one line */
+  .lang__btn {
+    padding: 0 12px;
+  }
+
+  .lang__current {
+    display: none;
+  }
+
+  .lang__code {
+    display: inline;
+  }
+
   .section {
     padding: 72px 0;
   }

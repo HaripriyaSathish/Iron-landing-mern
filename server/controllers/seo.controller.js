@@ -8,7 +8,7 @@ const TEXT_FIELDS = ["site_title", "meta_description", "meta_keywords", "og_titl
 const IMAGES = { favicon: "favicon", og_image: "og_image" };
 
 export async function getSeo(req, res) {
-  res.json({ success: true, data: await getSeoSettings() });
+  res.json({ success: true, data: req.translate("seo_settings", await getSeoSettings()) });
 }
 
 // multipart/form-data: favicon, og_image (files, optional), remove_favicon, remove_og_image + text fields

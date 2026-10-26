@@ -13,19 +13,27 @@ const ENDPOINTS = {
   testimonials: '/testimonials',
   contact: '/contact',
   footer: '/footer',
+  ui: '/languages/ui',
 }
 
-export default function useSiteData() {
+// lang: language code, or undefined for the main language. Switching keeps the old texts on screen
+// until the new ones arrive, so the page never blanks out.
+export default function useSiteData(lang) {
   const [data, setData] = useState({})
 
   useEffect(() => {
+    let stale = false
     Object.entries(ENDPOINTS).forEach(([key, url]) => {
       api
-        .get(url)
-        .then((res) => setData((d) => ({ ...d, [key]: res.data.data })))
+        .get(url, { params: { lang } })
+        .then((res) => !stale && setData((d) => ({ ...d, [key]: res.data.data })))
         .catch(() => {})
     })
-  }, [])
+    // A slow answer for the previous language must not overwrite the new one
+    return () => {
+      stale = true
+    }
+  }, [lang])
 
   return data
 }

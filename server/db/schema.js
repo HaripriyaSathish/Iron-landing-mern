@@ -250,6 +250,32 @@ const schema = [
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT mail_single_row CHECK (id = 1)
   )`,
+
+  // Website languages. The default one is the language typed into the normal admin pages.
+  `CREATE TABLE IF NOT EXISTS languages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(10) NOT NULL UNIQUE,
+    name VARCHAR(60) NOT NULL,
+    native_name VARCHAR(60) NOT NULL,
+    is_default BOOLEAN NOT NULL DEFAULT FALSE,
+    sort_order INT NOT NULL DEFAULT 0,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  )`,
+
+  // One translated text per language + table row + column (entity_id 0 = fixed website labels).
+  // A missing translation falls back to the default-language text.
+  `CREATE TABLE IF NOT EXISTS translations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    lang_code VARCHAR(10) NOT NULL,
+    entity VARCHAR(40) NOT NULL,
+    entity_id INT NOT NULL,
+    field VARCHAR(40) NOT NULL,
+    value TEXT NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT translation_unique UNIQUE (lang_code, entity, entity_id, field)
+  )`,
 ];
 
 // The DDL above is MySQL; Neon (Postgres) gets the same tables with these swaps.

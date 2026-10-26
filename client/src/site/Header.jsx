@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Menu, X } from 'lucide-react'
+import LanguageSwitcher from './LanguageSwitcher'
 
 // Highlights the menu link of the section currently on screen. Checked on scroll (not observed once)
 // because sections appear one by one as their data arrives.
@@ -34,11 +35,36 @@ function useActiveSection(targets) {
   return active
 }
 
-export default function Header({ navbar }) {
+// Switches the header to the ☰ menu on narrow screens, and also whenever the menu doesn't fit on one
+// line (longer words, e.g. in Tamil). Set as a data attribute, which React leaves alone between renders.
+function useCompactHeader(ref, contentKey) {
+  useLayoutEffect(() => {
+    const header = ref.current
+    const inner = header?.querySelector('.header__inner')
+    if (!inner) return
+    const update = () => {
+      // Measure the full one-line layout, then decide (all before the browser paints).
+      // Transitions are off meanwhile and the final state is applied before they come back on.
+      header.dataset.measuring = ''
+      delete header.dataset.compact
+      const tooWide = inner.scrollWidth > inner.clientWidth + 1
+      if (tooWide || window.innerWidth <= 980) header.dataset.compact = ''
+      void inner.offsetWidth
+      delete header.dataset.measuring
+    }
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [ref, contentKey])
+}
+
+export default function Header({ navbar, language }) {
   const [open, setOpen] = useState(false)
   const links = navbar?.links ?? []
   const settings = navbar?.settings
   const active = useActiveSection(links.map((l) => l.target))
+  const headerRef = useRef(null)
+  useCompactHeader(headerRef, [...links.map((l) => l.label), settings?.cta_text, language.current?.code].join('|'))
 
   // Lock page scroll while the phone menu is open
   useEffect(() => {
@@ -49,7 +75,7 @@ export default function Header({ navbar }) {
   }, [open])
 
   return (
-    <header className={`header ${open ? 'is-open' : ''}`}>
+    <header ref={headerRef} className={`header ${open ? 'is-open' : ''}`}>
       <div className="container header__inner">
         <a href="#home" className="header__logo" onClick={() => setOpen(false)}>
           {settings?.logo_url ? (
@@ -82,6 +108,8 @@ export default function Header({ navbar }) {
             {settings.cta_text}
           </a>
         )}
+
+        <LanguageSwitcher languages={language.languages} current={language.current} onChange={language.choose} />
 
         <button
           type="button"

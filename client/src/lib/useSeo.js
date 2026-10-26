@@ -36,11 +36,11 @@ export function useSiteFavicon() {
   }, [])
 }
 
-// Applies the admin-managed title, meta tags and favicon to the page head
-export default function useSeo() {
+// Applies the admin-managed title, meta tags and favicon to the page head (in the visitor's language)
+export default function useSeo(lang) {
   useEffect(() => {
     api
-      .get('/seo')
+      .get('/seo', { params: { lang } })
       .then(({ data: { data: seo } }) => {
         document.title = seo.site_title
         setMeta('name', 'description', seo.meta_description)
@@ -53,5 +53,5 @@ export default function useSeo() {
         setLink('canonical', seo.canonical_url)
       })
       .catch(() => {})
-  }, [])
+  }, [lang])
 }

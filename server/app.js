@@ -17,6 +17,8 @@ import testimonialsRoutes from "./routes/testimonials.routes.js";
 import contactRoutes from "./routes/contact.routes.js";
 import footerRoutes from "./routes/footer.routes.js";
 import mailSettingsRoutes from "./routes/mailSettings.routes.js";
+import languageRoutes from "./routes/language.routes.js";
+import { localize } from "./middleware/localize.js";
 import { notFound, errorHandler } from "./middleware/error.js";
 dotenv.config();
 
@@ -28,6 +30,9 @@ app.use(cors({ origin: process.env.CLIENT_URL }));
 app.use(express.json());
 
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
+
+// Public GETs read ?lang=ta and answer in that language
+app.use("/api", localize);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/navbar", navbarRoutes);
@@ -42,6 +47,7 @@ app.use("/api/testimonials", testimonialsRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/footer", footerRoutes);
 app.use("/api/mail-settings", mailSettingsRoutes);
+app.use("/api/languages", languageRoutes);
 
 // One website: when the React app has been built (on Render), serve it from here too.
 // Any non-API page (/, /admin, /admin/menu ...) gets index.html and React Router takes over.

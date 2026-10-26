@@ -4,7 +4,7 @@ import { requireFields, toBool, parseIds } from "../utils/validate.js";
 import { HeroSlide } from "../models/heroSlide.model.js";
 
 export async function getSlides(req, res) {
-  res.json({ success: true, data: await HeroSlide.findAll({ activeOnly: true }) });
+  res.json({ success: true, data: req.translate("hero_slides", await HeroSlide.findAll({ activeOnly: true })) });
 }
 
 export async function getSlidesAdmin(req, res) {

@@ -23,12 +23,13 @@ function validateSocial(platform, url) {
 
 // Public: everything the footer shows, assembled from the sections it reuses
 export async function getFooter(req, res) {
-  const settings = await getFooterSettings();
+  const t = req.translate;
+  const settings = t("footer_settings", await getFooterSettings());
   const [navbar, links, services, contact, socials] = await Promise.all([
-    getNavbarSettings(),
-    NavLink.findAll({ activeOnly: true }),
-    Service.findAll({ activeOnly: true }),
-    getContactSection(),
+    getNavbarSettings().then((row) => t("navbar_settings", row)),
+    NavLink.findAll({ activeOnly: true }).then((rows) => t("nav_links", rows)),
+    Service.findAll({ activeOnly: true }).then((rows) => t("services", rows)),
+    getContactSection().then((row) => t("contact_section", row)),
     SocialLink.findAll({ activeOnly: true }),
   ]);
 

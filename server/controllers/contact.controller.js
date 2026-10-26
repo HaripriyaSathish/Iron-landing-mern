@@ -6,7 +6,7 @@ const PHONE_RE = /^\+?[\d\s-]{7,20}$/;
 const URL_RE = /^https?:\/\/\S+$/i;
 
 export async function getContact(req, res) {
-  res.json({ success: true, data: await getContactSection() });
+  res.json({ success: true, data: req.translate("contact_section", await getContactSection()) });
 }
 
 export async function updateContact(req, res) {

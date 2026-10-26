@@ -31,7 +31,10 @@ function buildServiceData(body, file) {
 // Public: section heading + visible service cards
 export async function getServices(req, res) {
   const [section, services] = await Promise.all([getServicesSection(), Service.findAll({ activeOnly: true })]);
-  res.json({ success: true, data: { section, services } });
+  res.json({
+    success: true,
+    data: { section: req.translate("services_section", section), services: req.translate("services", services) },
+  });
 }
 
 // Admin: includes hidden services
