@@ -201,7 +201,7 @@ const schema = [
     primary_btn_text VARCHAR(40) NULL,
     secondary_btn_text VARCHAR(40) NULL,
     phone VARCHAR(30) NULL,
-    whatsapp VARCHAR(30) NULL,
+    whatsapp VARCHAR(255) NULL,
     whatsapp_message VARCHAR(255) NULL,
     email VARCHAR(150) NULL,
     address VARCHAR(300) NULL,
@@ -292,5 +292,16 @@ export function toPostgresDDL(sql) {
 }
 
 export const schemaFor = (dialect) => (dialect === "postgres" ? schema.map(toPostgresDDL) : schema);
+
+// Changes to tables that already exist (CREATE TABLE IF NOT EXISTS skips them). Each is safe to re-run.
+const migrations = [
+  // WhatsApp may be a Business link (https://wa.me/message/…), not just a number
+  {
+    mysql: "ALTER TABLE contact_section MODIFY whatsapp VARCHAR(255) NULL",
+    postgres: "ALTER TABLE contact_section ALTER COLUMN whatsapp TYPE VARCHAR(255)",
+  },
+];
+
+export const migrationsFor = (dialect) => migrations.map((m) => m[dialect === "postgres" ? "postgres" : "mysql"]);
 
 export default schema;

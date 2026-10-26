@@ -2,7 +2,7 @@
 // Creates all tables and seeds any table that is still empty.
 import bcrypt from "bcryptjs";
 import db from "../config/db.js";
-import { schemaFor } from "../db/schema.js";
+import { schemaFor, migrationsFor } from "../db/schema.js";
 import * as seed from "../db/seed.js";
 
 async function isEmpty(table) {
@@ -38,6 +38,7 @@ async function seedAdmin() {
 
 try {
   for (const statement of schemaFor(db.dialect)) await db.query(statement);
+  for (const statement of migrationsFor(db.dialect)) await db.query(statement);
   console.log("✓ tables ready");
 
   await seedAdmin();

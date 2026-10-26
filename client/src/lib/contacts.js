@@ -5,7 +5,11 @@ const digitsOnly = (value) => String(value ?? '').replace(/\D/g, '')
 // Keeps a leading + so numbers typed without a country code still dial locally
 export const telHref = (phone) => `tel:${String(phone ?? '').replace(/[^\d+]/g, '')}`
 
+export const isLink = (value) => /^https?:\/\//i.test(String(value ?? '').trim())
+
+// number: a WhatsApp number, or a ready-made wa.me link (business links carry their own message)
 export function whatsappHref(number, message) {
+  if (isLink(number)) return String(number).trim()
   const text = message ? `?text=${encodeURIComponent(message)}` : ''
   return `https://wa.me/${digitsOnly(number)}${text}`
 }

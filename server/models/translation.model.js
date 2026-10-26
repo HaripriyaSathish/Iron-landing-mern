@@ -7,6 +7,8 @@ export const Language = createListModel("languages", ["code", "name", "native_na
 export const UI_TEXT = {
   phone_label: "Phone",
   whatsapp_label: "WhatsApp",
+  // Shown instead of the WhatsApp detail when it is a link rather than a number
+  whatsapp_chat: "Chat with us",
   address_label: "Address",
   hours_label: "Business Hours",
 };
@@ -162,6 +164,7 @@ export const GROUPS = [
         fields: [
           ["phone_label", "Label: Phone"],
           ["whatsapp_label", "Label: WhatsApp"],
+          ["whatsapp_chat", "WhatsApp link text"],
           ["address_label", "Label: Address"],
           ["hours_label", "Label: Business Hours"],
         ],

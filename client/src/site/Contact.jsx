@@ -1,5 +1,5 @@
 import { Clock, MapPin, MessageCircle, Phone } from 'lucide-react'
-import { mapHref, telHref, whatsappHref } from '../lib/contacts'
+import { isLink, mapHref, telHref, whatsappHref } from '../lib/contacts'
 import { revealDelay } from './useScrollReveal'
 
 // labels: the fixed words (Phone, Address…) in the visitor's language
@@ -10,7 +10,15 @@ export default function Contact({ data, labels = {} }) {
   // Every detail with a link opens the matching app: dialler, WhatsApp or Google Maps
   const details = [
     { id: 'phone', icon: Phone, label: labels.phone_label || 'Phone', value: data.phone, href: data.phone && telHref(data.phone) },
-    { id: 'whatsapp', icon: MessageCircle, label: labels.whatsapp_label || 'WhatsApp', value: data.whatsapp, href: wa, external: true },
+    {
+      id: 'whatsapp',
+      icon: MessageCircle,
+      label: labels.whatsapp_label || 'WhatsApp',
+      // A Business link is not worth showing as text, so it reads "Chat with us"
+      value: data.whatsapp && (isLink(data.whatsapp) ? labels.whatsapp_chat || 'Chat with us' : data.whatsapp),
+      href: wa,
+      external: true,
+    },
     { id: 'address', icon: MapPin, label: labels.address_label || 'Address', value: data.address, href: data.address && mapHref(data.address, data.map_url), external: true },
     { id: 'hours', icon: Clock, label: labels.hours_label || 'Business Hours', value: data.business_hours },
   ].filter((d) => d.value)

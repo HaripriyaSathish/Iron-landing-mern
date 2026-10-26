@@ -1,5 +1,5 @@
 import httpError from "../utils/httpError.js";
-import { requireFields, toBool, parseIds } from "../utils/validate.js";
+import { requireFields, toBool, parseIds, WA_LINK_RE } from "../utils/validate.js";
 import { QuickContact, CONTACT_TYPES } from "../models/quickContact.model.js";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -8,7 +8,10 @@ const PHONE_RE = /^\+?[\d\s-]{7,20}$/;
 function validate(type, value) {
   if (!CONTACT_TYPES.includes(type)) throw httpError(400, `type must be one of: ${CONTACT_TYPES.join(", ")}`);
   if (type === "email" && !EMAIL_RE.test(value)) throw httpError(400, "Enter a valid email address");
-  if (type !== "email" && !PHONE_RE.test(value)) throw httpError(400, "Enter a valid phone number");
+  if (type === "whatsapp" && !PHONE_RE.test(value) && !WA_LINK_RE.test(value)) {
+    throw httpError(400, "Enter a WhatsApp number or a wa.me link");
+  }
+  if (type === "call" && !PHONE_RE.test(value)) throw httpError(400, "Enter a valid phone number");
 }
 
 export async function getContacts(req, res) {

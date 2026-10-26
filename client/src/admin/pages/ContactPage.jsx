@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Clock, Mail, MapPin, MessageCircle, Phone, PhoneCall, Save } from 'lucide-react'
 import api, { errorMessage } from '../../lib/api'
-import { mailHref, mapHref, telHref, whatsappHref } from '../../lib/contacts'
+import { isLink, mailHref, mapHref, telHref, whatsappHref } from '../../lib/contacts'
 import { useToast } from '../components/Toast'
 import { Button, Card, Field, PageHeader, PageLoader } from '../components/ui'
 
@@ -104,13 +104,16 @@ export default function ContactPage() {
               <Field label="Phone number" hint="With country code, e.g. +91 8220695123">
                 <input className="input" inputMode="tel" value={form.phone} onChange={set('phone')} />
               </Field>
-              <Field label="WhatsApp number" hint="With country code">
-                <input className="input" inputMode="tel" value={form.whatsapp} onChange={set('whatsapp')} />
+              <Field label="WhatsApp number or link" hint="Number with country code, or your Business link (https://wa.me/message/…)">
+                <input className="input" value={form.whatsapp} onChange={set('whatsapp')} />
               </Field>
             </div>
-            <Field label="Ready-made WhatsApp message" hint="Pre-filled when a customer opens the chat.">
-              <input className="input" value={form.whatsapp_message} onChange={set('whatsapp_message')} />
-            </Field>
+            {/* Business links bring their own message, so this only applies to numbers */}
+            {!isLink(form.whatsapp) && (
+              <Field label="Ready-made WhatsApp message" hint="Pre-filled when a customer opens the chat.">
+                <input className="input" value={form.whatsapp_message} onChange={set('whatsapp_message')} />
+              </Field>
+            )}
             <Field label="Email address">
               <input className="input" type="email" value={form.email} onChange={set('email')} />
             </Field>

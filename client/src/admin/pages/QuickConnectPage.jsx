@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Mail, MessageCircle, MessageCircleHeart, Pencil, Phone, Plus, Save, Trash2 } from 'lucide-react'
 import api, { errorMessage } from '../../lib/api'
-import { contactHref } from '../../lib/contacts'
+import { contactHref, isLink } from '../../lib/contacts'
 import { useToast } from '../components/Toast'
 import {
   Button,
@@ -20,7 +20,7 @@ import { moveItem } from '../utils'
 
 const CONTACT_TYPES = {
   call: { icon: Phone, name: 'Phone call', valueLabel: 'Phone number', placeholder: '+91 82206 95123' },
-  whatsapp: { icon: MessageCircle, name: 'WhatsApp', valueLabel: 'WhatsApp number', placeholder: '918220695123' },
+  whatsapp: { icon: MessageCircle, name: 'WhatsApp', valueLabel: 'WhatsApp number or link', placeholder: '918220695123' },
   email: { icon: Mail, name: 'Email', valueLabel: 'Email address', placeholder: 'ironmeka605@gmail.com' },
 }
 
@@ -219,7 +219,11 @@ export default function QuickConnectPage() {
             </Field>
             <Field
               label={type.valueLabel}
-              hint={editing.type === 'whatsapp' ? 'Country code + number, no spaces (91 for India).' : undefined}
+              hint={
+                editing.type === 'whatsapp'
+                  ? 'Country code + number, no spaces (91 for India), or your WhatsApp Business link (https://wa.me/message/…).'
+                  : undefined
+              }
             >
               <input
                 className="input"
@@ -229,7 +233,8 @@ export default function QuickConnectPage() {
                 onChange={(e) => setEditing({ ...editing, value: e.target.value })}
               />
             </Field>
-            {editing.type === 'whatsapp' && (
+            {/* Business links (wa.me/message/…) bring their own message, so this only applies to numbers */}
+            {editing.type === 'whatsapp' && !isLink(editing.value) && (
               <Field label="Ready-made message (optional)" hint="Pre-filled in the customer's WhatsApp chat.">
                 <textarea
                   className="input"

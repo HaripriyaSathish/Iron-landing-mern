@@ -17,3 +17,6 @@ export function parseIds(ids) {
   }
   return ids.map(Number);
 }
+
+// WhatsApp Business short links, e.g. https://wa.me/message/ABC123
+export const WA_LINK_RE = /^https:\/\/(wa\.me|api\.whatsapp\.com)\/\S+$/i;

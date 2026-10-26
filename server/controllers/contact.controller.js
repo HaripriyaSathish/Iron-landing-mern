@@ -1,4 +1,5 @@
 import httpError from "../utils/httpError.js";
+import { WA_LINK_RE } from "../utils/validate.js";
 import { getContactSection, updateContactSection } from "../models/contact.model.js";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -21,7 +22,9 @@ export async function updateContact(req, res) {
     if (body[key] !== undefined && !String(body[key] ?? "").trim()) data[key] = null;
   }
   if (data.phone && !PHONE_RE.test(data.phone)) throw httpError(400, "Enter a valid phone number");
-  if (data.whatsapp && !PHONE_RE.test(data.whatsapp)) throw httpError(400, "Enter a valid WhatsApp number");
+  if (data.whatsapp && !PHONE_RE.test(data.whatsapp) && !WA_LINK_RE.test(data.whatsapp)) {
+    throw httpError(400, "Enter a WhatsApp number or a wa.me link");
+  }
   if (data.email && !EMAIL_RE.test(data.email)) throw httpError(400, "Enter a valid email address");
   if (data.map_url && !URL_RE.test(data.map_url)) throw httpError(400, "Map link must start with http:// or https://");
 
