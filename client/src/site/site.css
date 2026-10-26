@@ -1583,6 +1583,21 @@ html:lang(ta) .book__info small {
   color: var(--gold);
 }
 
+/* Browser blocked sound until the visitor interacts: a gentle bounce invites a tap */
+.music.is-waiting .music__btn {
+  animation: music-invite 1.8s ease-in-out infinite;
+}
+
+@keyframes music-invite {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
 /* Soft ring that breathes while music plays */
 .music.is-playing .music__btn::before {
   content: '';

@@ -21,32 +21,61 @@ const writePaused = (paused) => {
   }
 }
 
-// Round music button in the bottom-left corner. Browsers only allow sound after the visitor
-// interacts, so with autostart the track begins on their first tap, click or key press.
+// Events that count as the visitor interacting, which lets the browser play sound
+const UNLOCK_EVENTS = ['pointerdown', 'click', 'touchend', 'keydown']
+
+// Round music button in the bottom-left corner. With autostart the track tries to play as soon as the
+// page opens. Most browsers block sound until the visitor interacts, so if that is refused it starts on
+// their first tap, click or key press instead, and the button pulses meanwhile.
 export default function MusicPlayer({ music, labels = {} }) {
   const audioRef = useRef(null)
   const buttonRef = useRef(null)
   const [playing, setPlaying] = useState(false)
+  const [waiting, setWaiting] = useState(false)
 
   useEffect(() => {
     if (audioRef.current && music) audioRef.current.volume = music.volume / 100
   }, [music])
 
-  // First interaction anywhere starts the music (a tap on the button itself is handled by the button)
   useEffect(() => {
-    if (!music?.autostart || readPaused()) return
-    const start = (e) => {
-      if (buttonRef.current?.contains(e.target)) return
-      audioRef.current?.play().catch(() => {})
-      remove()
+    const audio = audioRef.current
+    if (!audio || !music?.autostart || readPaused()) return
+    let done = false
+
+    const stopListening = () => UNLOCK_EVENTS.forEach((type) => document.removeEventListener(type, start, true))
+    // A tap on the music button itself is handled by the button
+    function start(e) {
+      if (done || buttonRef.current?.contains(e.target)) return
+      // Already started from the button, or paused there on purpose: leave it to the visitor
+      if (!audio.paused || readPaused()) {
+        done = true
+        stopListening()
+        return
+      }
+      audio
+        .play()
+        .then(() => {
+          done = true
+          stopListening()
+        })
+        .catch(() => {}) // still blocked: the next interaction tries again
     }
-    const remove = () => {
-      document.removeEventListener('pointerdown', start)
-      document.removeEventListener('keydown', start)
+
+    audio
+      .play()
+      .then(() => {
+        done = true
+      })
+      .catch(() => {
+        if (done) return
+        setWaiting(true)
+        UNLOCK_EVENTS.forEach((type) => document.addEventListener(type, start, true))
+      })
+
+    return () => {
+      done = true
+      stopListening()
     }
-    document.addEventListener('pointerdown', start)
-    document.addEventListener('keydown', start)
-    return remove
   }, [music])
 
   // Quiet while the visitor is on another tab, back on when they return
@@ -82,13 +111,16 @@ export default function MusicPlayer({ music, labels = {} }) {
   const label = playing ? labels.music_pause || 'Pause music' : labels.music_play || 'Play music'
 
   return (
-    <div className={`music ${playing ? 'is-playing' : ''}`}>
+    <div className={`music ${playing ? 'is-playing' : waiting ? 'is-waiting' : ''}`}>
       <audio
         ref={audioRef}
         src={music.url}
         loop
-        preload="none"
-        onPlay={() => setPlaying(true)}
+        preload={music.autostart ? 'auto' : 'none'}
+        onPlay={() => {
+          setPlaying(true)
+          setWaiting(false)
+        }}
         onPause={() => setPlaying(false)}
       />
       <button

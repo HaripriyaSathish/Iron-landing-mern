@@ -152,9 +152,9 @@ export default function MusicPage() {
             <Toggle
               checked={form.autostart}
               onChange={(v) => setForm({ ...form, autostart: v })}
-              label="Start on the visitor's first tap"
+              label="Play automatically when the website opens"
             />
-            <span>Start on the visitor's first tap</span>
+            <span>Play automatically when the website opens</span>
           </div>
           <p className="field__hint">Off: music only plays when the visitor presses the music button.</p>
 
@@ -173,9 +173,10 @@ export default function MusicPage() {
           <p className="note">
             <Info size={16} />
             <span>
-              Browsers never let a website play sound by itself the moment it opens. Your music starts as soon as the
-              visitor taps or clicks anywhere, and the round music button lets them pause it. A visitor who pauses it
-              won't hear it again on their next visit.
+              The music starts by itself when the website opens wherever the browser allows sound. Many browsers
+              (especially on phones, and for first-time visitors) hold sound back until the visitor touches the page;
+              then it starts on their very first tap or click, and the music button gently bounces. The
+              round music button lets visitors turn it off, and it stays off on their next visit.
             </span>
           </p>
         </Card>
