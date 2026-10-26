@@ -21,6 +21,7 @@ const ENDPOINTS = {
   '/admin/footer': '/footer/admin',
   '/admin/email': '/mail-settings',
   '/admin/languages': '/languages/admin',
+  '/admin/music': '/music/admin',
 }
 
 // One short status line per section card
@@ -67,6 +68,9 @@ function summarize(path, data) {
     }
     case '/admin/email':
       return data.enabled ? { text: `Alerts go to ${data.alert_email}` } : { text: 'Alerts are off', warn: true }
+    case '/admin/music':
+      if (!data.music_url) return { text: 'No music uploaded yet', warn: true }
+      return data.enabled ? { text: `Playing at ${data.volume}% volume` } : { text: 'Music is switched off' }
     case '/admin/languages': {
       const extra = data.filter((l) => !l.is_default && l.is_active)
       if (!extra.length) return { text: 'Only the main language is on' }

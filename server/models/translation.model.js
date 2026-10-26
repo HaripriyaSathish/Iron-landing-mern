@@ -9,6 +9,8 @@ export const UI_TEXT = {
   whatsapp_label: "WhatsApp",
   // Shown instead of the WhatsApp detail when it is a link rather than a number
   whatsapp_chat: "Chat with us",
+  music_play: "Play music",
+  music_pause: "Pause music",
   address_label: "Address",
   hours_label: "Business Hours",
 };
@@ -160,11 +162,13 @@ export const GROUPS = [
       {
         table: "ui",
         single: true,
-        label: "Contact detail labels",
+        label: "Website labels",
         fields: [
           ["phone_label", "Label: Phone"],
           ["whatsapp_label", "Label: WhatsApp"],
           ["whatsapp_chat", "WhatsApp link text"],
+          ["music_play", "Music button: play"],
+          ["music_pause", "Music button: pause"],
           ["address_label", "Label: Address"],
           ["hours_label", "Label: Business Hours"],
         ],

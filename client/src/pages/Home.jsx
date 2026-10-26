@@ -13,6 +13,7 @@ import Testimonials from '../site/Testimonials'
 import Contact from '../site/Contact'
 import Footer from '../site/Footer'
 import FloatingContacts from '../site/FloatingContacts'
+import MusicPlayer from '../site/MusicPlayer'
 import '../site/site.css'
 
 export default function Home() {
@@ -36,6 +37,7 @@ export default function Home() {
       </main>
       <Footer data={data.footer} />
       <FloatingContacts contacts={data.quickContacts} />
+      <MusicPlayer music={data.music} labels={data.ui} />
     </div>
   )
 }

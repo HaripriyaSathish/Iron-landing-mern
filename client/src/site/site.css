@@ -1549,6 +1549,113 @@ html:lang(ta) .book__info small {
   letter-spacing: 0.02em;
 }
 
+/* ───────── Music button (bottom-left) ───────── */
+.music {
+  position: fixed;
+  left: 22px;
+  bottom: 22px;
+  z-index: 40;
+}
+
+.music__btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  border: 2.5px solid #fff;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--maroon);
+  /* Same white ring + halo as the contact buttons, visible on every section colour */
+  box-shadow: 0 0 0 1px rgba(38, 34, 33, 0.12), 0 12px 26px -8px rgba(38, 34, 33, 0.55);
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.music__btn:hover {
+  transform: translateY(-3px);
+}
+
+.music.is-playing .music__btn {
+  background: var(--maroon);
+  color: var(--gold);
+}
+
+/* Soft ring that breathes while music plays */
+.music.is-playing .music__btn::before {
+  content: '';
+  position: absolute;
+  inset: -2.5px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  animation: music-ring 2.4s ease-out infinite;
+}
+
+/* Little equaliser bars on the corner of the button while playing */
+.music__bars {
+  position: absolute;
+  right: -6px;
+  bottom: -4px;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 18px;
+  padding: 3px 4px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(38, 34, 33, 0.25);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.music__bars i {
+  width: 3px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--maroon);
+}
+
+.music.is-playing .music__bars {
+  opacity: 1;
+  transform: none;
+}
+
+.music.is-playing .music__bars i {
+  animation: music-bar 0.9s ease-in-out infinite;
+}
+
+.music.is-playing .music__bars i:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.music.is-playing .music__bars i:nth-child(3) {
+  animation-delay: -0.6s;
+}
+
+@keyframes music-bar {
+  0%,
+  100% {
+    height: 4px;
+  }
+  50% {
+    height: 12px;
+  }
+}
+
+@keyframes music-ring {
+  from {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
 /* ───────── Responsive ───────── */
 @media (max-width: 1180px) {
   .header__nav {
@@ -1759,6 +1866,16 @@ html:lang(ta) .book__info small {
     right: 14px;
     bottom: 14px;
     gap: 10px;
+  }
+
+  .music {
+    left: 14px;
+    bottom: 14px;
+  }
+
+  .music__btn {
+    width: 44px;
+    height: 44px;
   }
 
   .floater {

@@ -251,6 +251,19 @@ const schema = [
     CONSTRAINT mail_single_row CHECK (id = 1)
   )`,
 
+  // Single-row table (id is always 1). Background music file (Cloudinary) and how it plays.
+  `CREATE TABLE IF NOT EXISTS music_settings (
+    id TINYINT PRIMARY KEY DEFAULT 1,
+    enabled BOOLEAN NOT NULL DEFAULT FALSE,
+    title VARCHAR(120) NULL,
+    music_url VARCHAR(500) NULL,
+    music_public_id VARCHAR(255) NULL,
+    volume TINYINT UNSIGNED NOT NULL DEFAULT 40,
+    autostart BOOLEAN NOT NULL DEFAULT TRUE,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT music_single_row CHECK (id = 1)
+  )`,
+
   // Website languages. The default one is the language typed into the normal admin pages.
   `CREATE TABLE IF NOT EXISTS languages (
     id INT AUTO_INCREMENT PRIMARY KEY,

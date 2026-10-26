@@ -205,3 +205,10 @@ export const languages = [
   { code: "ta", name: "Tamil", native_name: "தமிழ்", is_default: false },
   { code: "fr", name: "French", native_name: "Français", is_default: false },
 ];
+
+// Music starts switched off until the client uploads a track in the admin panel
+export const musicSettings = {
+  enabled: false,
+  volume: 40,
+  autostart: true,
+};

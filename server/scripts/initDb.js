@@ -63,6 +63,7 @@ try {
   await seedSingle("footer_settings", seed.footerSettings);
   await seedList("social_links", seed.socialLinks);
   await seedSingle("mail_settings", seed.mailSettings);
+  await seedSingle("music_settings", seed.musicSettings);
   await seedList("languages", seed.languages);
 } catch (err) {
   console.error("Database init failed:", err.message);

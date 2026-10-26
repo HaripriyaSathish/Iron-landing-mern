@@ -19,6 +19,7 @@ import ContactPage from './pages/ContactPage'
 import FooterPage from './pages/FooterPage'
 import EmailPage from './pages/EmailPage'
 import LanguagesPage from './pages/LanguagesPage'
+import MusicPage from './pages/MusicPage'
 import TranslatePage from './pages/TranslatePage'
 import AccountPage from './pages/AccountPage'
 import './admin.css'
@@ -49,6 +50,7 @@ export default function AdminApp() {
             <Route path="footer" element={<FooterPage />} />
             <Route path="email" element={<EmailPage />} />
             <Route path="languages" element={<LanguagesPage />} />
+            <Route path="music" element={<MusicPage />} />
             <Route path="languages/:code" element={<TranslatePage />} />
             <Route path="account" element={<AccountPage />} />
             <Route path="*" element={<Navigate to="/admin" replace />} />
