@@ -14,6 +14,7 @@ const ENDPOINTS = {
   '/admin/slider': '/hero/admin',
   '/admin/story': '/about/admin',
   '/admin/services': '/services/admin',
+  '/admin/specialties': '/specialties/admin',
   '/admin/promise': '/why-us/admin',
   '/admin/process': '/how-it-works/admin',
   '/admin/reviews': '/testimonials/admin',
@@ -51,6 +52,8 @@ function summarize(path, data) {
         ? { text: `${missing} of ${data.services.length} services need a photo`, warn: true }
         : { text: `${data.services.filter((s) => s.is_active).length} services live` }
     }
+    case '/admin/specialties':
+      return data.length ? { text: `${data.filter((b) => b.is_active).length} blocks showing` } : { text: 'No blocks yet', warn: true }
     case '/admin/promise':
       return { text: `${data.features.filter((f) => f.is_active).length} reasons showing` }
     case '/admin/process':

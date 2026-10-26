@@ -925,9 +925,157 @@
   color: var(--gold);
 }
 
+/* Highlighted words typed as **words** in the admin panel */
+.hl {
+  font-weight: 700;
+  color: var(--maroon);
+}
+
+.section--maroon .hl,
+.book__main .hl {
+  color: var(--gold);
+}
+
+/* ───────── Specialties (Saree Polish, B2B…) ───────── */
+.spec {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas: 'text points';
+  gap: 40px 64px;
+  align-items: center;
+}
+
+/* Every second block sits on a cream panel with the sides swapped */
+.spec--flip {
+  grid-template-areas: 'points text';
+  margin-top: 96px;
+  padding: 64px 56px;
+  border-radius: var(--radius);
+  background: var(--cream);
+}
+
+.spec--image {
+  grid-template-areas:
+    'media text'
+    'media points';
+  align-items: start;
+}
+
+.spec--image.spec--flip {
+  grid-template-areas:
+    'text media'
+    'points media';
+}
+
+.spec + .spec:not(.spec--flip) {
+  margin-top: 96px;
+}
+
+.spec__media {
+  grid-area: media;
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.spec__media img {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.spec__media:hover img {
+  transform: scale(1.05);
+}
+
+.spec__text {
+  grid-area: text;
+}
+
+.spec__text .eyebrow {
+  font-size: 12px;
+}
+
+.spec__text h2 {
+  margin-top: 16px;
+  font-size: clamp(30px, 3.2vw, 44px);
+  line-height: 1.22;
+  color: var(--maroon);
+}
+
+.ornament--left {
+  margin: 20px 0 24px;
+}
+
+.spec__text p {
+  margin-bottom: 16px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.spec__text p:last-child {
+  margin-bottom: 0;
+}
+
+.spec__points {
+  grid-area: points;
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.spec__points li {
+  display: flex;
+  gap: 16px;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper);
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--muted);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.spec--flip .spec__points li {
+  background: #fff;
+}
+
+.spec__points li:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-card);
+}
+
+.spec__points strong {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-heading);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--maroon);
+}
+
+.spec__icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--maroon);
+  color: var(--gold);
+}
+
 .why {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--why-cols, 4), minmax(0, 1fr));
   gap: 24px;
 }
 
@@ -1527,12 +1675,14 @@ html:lang(ta) .header__nav a:not(.site-btn) {
 }
 
 html:lang(ta) .s-heading h2,
+html:lang(ta) .spec__text h2,
 html:lang(ta) .about__text h2,
 html:lang(ta) .book__main h2 {
   font-size: clamp(24px, 2.5vw, 34px);
 }
 
 html:lang(ta) .service__body h3,
+html:lang(ta) .spec__points strong,
 html:lang(ta) .footer__col h3 {
   font-size: 17px;
 }
@@ -1704,6 +1854,38 @@ html:lang(ta) .book__info small {
 }
 
 @media (max-width: 980px) {
+  /* Specialties stack: heading, then photo, then points */
+  .spec,
+  .spec--flip {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'text'
+      'points';
+    gap: 32px;
+  }
+
+  .spec--image,
+  .spec--image.spec--flip {
+    grid-template-areas:
+      'text'
+      'media'
+      'points';
+  }
+
+  .spec--flip {
+    margin-top: 72px;
+    padding: 40px 24px;
+  }
+
+  .spec + .spec:not(.spec--flip) {
+    margin-top: 72px;
+  }
+
+  .spec__media img {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
   .hero__content {
     padding-left: 24px;
     padding-right: 24px;
@@ -1734,6 +1916,27 @@ html:lang(ta) .book__info small {
 }
 
 @media (max-width: 640px) {
+  .spec--flip {
+    margin-left: -16px;
+    margin-right: -16px;
+    padding: 40px 16px;
+    border-radius: 0;
+  }
+
+  .spec__points li {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .spec__points strong {
+    font-size: 19px;
+  }
+
+  .spec__icon {
+    width: 36px;
+    height: 36px;
+  }
+
   /* Long button text (other languages) wraps onto two lines instead of running off the screen */
   .site-btn {
     height: auto;

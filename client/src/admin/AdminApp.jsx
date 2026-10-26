@@ -12,6 +12,7 @@ import QuickConnectPage from './pages/QuickConnectPage'
 import SliderPage from './pages/SliderPage'
 import StoryPage from './pages/StoryPage'
 import ServicesPage from './pages/ServicesPage'
+import SpecialtiesPage from './pages/SpecialtiesPage'
 import PromisePage from './pages/PromisePage'
 import ProcessPage from './pages/ProcessPage'
 import TestimonialsPage from './pages/TestimonialsPage'
@@ -43,6 +44,7 @@ export default function AdminApp() {
             <Route path="slider" element={<SliderPage />} />
             <Route path="story" element={<StoryPage />} />
             <Route path="services" element={<ServicesPage />} />
+            <Route path="specialties" element={<SpecialtiesPage />} />
             <Route path="promise" element={<PromisePage />} />
             <Route path="process" element={<ProcessPage />} />
             <Route path="reviews" element={<TestimonialsPage />} />

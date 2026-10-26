@@ -7,6 +7,7 @@ import Header from '../site/Header'
 import Hero from '../site/Hero'
 import About from '../site/About'
 import Services from '../site/Services'
+import Specialties from '../site/Specialties'
 import WhyUs from '../site/WhyUs'
 import HowItWorks from '../site/HowItWorks'
 import Testimonials from '../site/Testimonials'
@@ -30,6 +31,7 @@ export default function Home() {
         <Hero slides={data.hero} />
         <About data={data.about} />
         <Services data={data.services} />
+        <Specialties blocks={data.specialties} />
         <WhyUs data={data.why} />
         <HowItWorks data={data.how} />
         <Testimonials data={data.testimonials} />

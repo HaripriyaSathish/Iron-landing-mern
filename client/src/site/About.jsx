@@ -1,5 +1,6 @@
 import { getIcon } from '../lib/icons'
 import { revealDelay } from './useScrollReveal'
+import RichText from './RichText'
 
 export default function About({ data }) {
   if (!data?.section) return null
@@ -30,7 +31,9 @@ export default function About({ data }) {
           <span className="eyebrow">{section.tagline}</span>
           <h2>{section.heading}</h2>
           {paragraphs.map((p, i) => (
-            <p key={i}>{p}</p>
+            <p key={i}>
+              <RichText text={p} />
+            </p>
           ))}
           {highlights.length > 0 && (
             <ul className="about__highlights">

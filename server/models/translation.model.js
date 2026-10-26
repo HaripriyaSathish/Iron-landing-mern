@@ -89,6 +89,23 @@ export const GROUPS = [
     ],
   },
   {
+    id: "specialties",
+    title: "Specialties & B2B",
+    sources: [
+      {
+        table: "specialty_blocks",
+        title: "title",
+        item: "Block",
+        fields: [
+          ["tagline", "Small heading"],
+          ["title", "Main heading"],
+          ["intro", "Introduction", true],
+          ["points", "Points (one per line)", true],
+        ],
+      },
+    ],
+  },
+  {
     id: "promise",
     title: "Why Choose Us",
     sources: [

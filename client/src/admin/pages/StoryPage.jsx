@@ -177,7 +177,7 @@ export default function StoryPage() {
             <Field label="Main heading">
               <input className="input" required value={form.heading} onChange={set('heading')} />
             </Field>
-            <Field label="Your story" count={form.content.length} max={900}>
+            <Field label="Your story" count={form.content.length} max={900} hint="Wrap words in **double stars** to highlight them in bold.">
               <textarea className="input" rows={10} required value={form.content} onChange={set('content')} />
             </Field>
             <div className="card__foot">

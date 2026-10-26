@@ -218,7 +218,7 @@ export default function PromisePage() {
                 onChange={(e) => setEditing({ ...editing, title: e.target.value })}
               />
             </Field>
-            <Field label="Short description" count={editing.description.length} max={90}>
+            <Field label="Short description" count={editing.description.length} max={200} hint="Wrap words in **double stars** to highlight them in bold.">
               <textarea
                 className="input"
                 rows={2}

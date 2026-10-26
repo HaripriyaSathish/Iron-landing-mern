@@ -251,6 +251,23 @@ const schema = [
     CONSTRAINT mail_single_row CHECK (id = 1)
   )`,
 
+  // "Specialties" section: one block per offer (e.g. Premium Saree Polish, B2B for hotels).
+  // points: one per line, "Bold part: rest of the sentence".
+  `CREATE TABLE IF NOT EXISTS specialty_blocks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tagline VARCHAR(80) NULL,
+    title VARCHAR(200) NOT NULL,
+    intro TEXT NULL,
+    points TEXT NULL,
+    image_url VARCHAR(500) NULL,
+    image_public_id VARCHAR(255) NULL,
+    image_alt VARCHAR(150) NULL,
+    sort_order INT NOT NULL DEFAULT 0,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  )`,
+
   // Single-row table (id is always 1). Background music file (Cloudinary) and how it plays.
   `CREATE TABLE IF NOT EXISTS music_settings (
     id TINYINT PRIMARY KEY DEFAULT 1,

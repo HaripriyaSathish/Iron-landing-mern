@@ -1,6 +1,7 @@
 import {
   BookHeart,
   Compass,
+  Gem,
   HeartHandshake,
   Images,
   Languages,
@@ -43,6 +44,7 @@ export const groups = [
       { path: '/admin/slider', icon: Images, title: 'Hero Slider', hint: 'Big welcome banner' },
       { path: '/admin/story', icon: BookHeart, title: 'About Us', hint: 'Your story, photo & highlights' },
       { path: '/admin/services', icon: Shirt, title: 'Services & Prices', hint: 'Service cards & rates' },
+      { path: '/admin/specialties', icon: Gem, title: 'Specialties & B2B', hint: 'Saree Polish & hotel service' },
       { path: '/admin/promise', icon: HeartHandshake, title: 'Why Choose Us', hint: 'Reasons customers trust you' },
       { path: '/admin/process', icon: Route, title: 'How It Works', hint: 'Steps from booking to ready' },
       { path: '/admin/reviews', icon: MessageSquareQuote, title: 'Testimonials', hint: 'Reviews & star ratings' },

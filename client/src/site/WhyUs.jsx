@@ -1,6 +1,7 @@
 import { getIcon } from '../lib/icons'
 import SectionHeading from './SectionHeading'
 import { revealDelay } from './useScrollReveal'
+import RichText from './RichText'
 
 export default function WhyUs({ data }) {
   if (!data?.section) return null
@@ -10,7 +11,8 @@ export default function WhyUs({ data }) {
     <section id="why-choose-us" className="section section--maroon">
       <div className="container">
         <SectionHeading tagline={section.tagline} heading={section.heading} light />
-        <div className="why">
+        {/* As many columns as cards, up to 4 */}
+        <div className="why" style={{ '--why-cols': Math.min(Math.max(features.length, 1), 4) }}>
           {features.map((f, i) => {
             const Icon = getIcon(f.icon)
             return (
@@ -19,7 +21,9 @@ export default function WhyUs({ data }) {
                   <Icon size={28} strokeWidth={1.6} />
                 </span>
                 <h3>{f.title}</h3>
-                <p>{f.description}</p>
+                <p>
+                  <RichText text={f.description} />
+                </p>
               </article>
             )
           })}

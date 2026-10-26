@@ -8,6 +8,7 @@ const ENDPOINTS = {
   hero: '/hero',
   about: '/about',
   services: '/services',
+  specialties: '/specialties',
   why: '/why-us',
   how: '/how-it-works',
   testimonials: '/testimonials',

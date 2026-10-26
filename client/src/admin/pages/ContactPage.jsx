@@ -86,7 +86,7 @@ export default function ContactPage() {
                 <input className="input" required value={form.heading} onChange={set('heading')} />
               </Field>
             </div>
-            <Field label="Short description" count={form.description.length} max={200}>
+            <Field label="Short description" count={form.description.length} max={400} hint="Wrap words in **double stars** to highlight them in bold.">
               <textarea className="input" rows={3} value={form.description} onChange={set('description')} />
             </Field>
             <div className="row-2">

@@ -1,6 +1,7 @@
 import { Clock, MapPin, MessageCircle, Phone } from 'lucide-react'
 import { isLink, mapHref, telHref, whatsappHref } from '../lib/contacts'
 import { revealDelay } from './useScrollReveal'
+import RichText from './RichText'
 
 // labels: the fixed words (Phone, Address…) in the visitor's language
 export default function Contact({ data, labels = {} }) {
@@ -30,7 +31,11 @@ export default function Contact({ data, labels = {} }) {
           <div className="book__main" data-reveal="left">
             <span className="eyebrow">{data.tagline}</span>
             <h2>{data.heading}</h2>
-            {data.description && <p>{data.description}</p>}
+            {data.description && (
+              <p>
+                <RichText text={data.description} />
+              </p>
+            )}
             <div className="book__actions">
               {data.primary_btn_text && data.phone && (
                 <a href={telHref(data.phone)} className="site-btn site-btn--gold site-btn--lg">
