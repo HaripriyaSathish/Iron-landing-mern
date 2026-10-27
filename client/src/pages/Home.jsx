@@ -5,6 +5,7 @@ import useSiteData from '../site/useSiteData'
 import useLanguage from '../site/useLanguage'
 import Header from '../site/Header'
 import Hero from '../site/Hero'
+import Ticker from '../site/Ticker'
 import About from '../site/About'
 import Services from '../site/Services'
 import Specialties from '../site/Specialties'
@@ -31,6 +32,7 @@ export default function Home() {
       <Header navbar={data.navbar} language={language} />
       <main>
         <Hero slides={data.hero} />
+        <Ticker items={data.ticker} labels={data.ui} />
         <About data={data.about} />
         <Services data={data.services} />
         <Specialties blocks={data.specialties} />

@@ -2882,7 +2882,7 @@ a.preset {
   align-items: center;
   justify-content: center;
   gap: 8px 12px;
-  padding: 11px 40px;
+  padding: 11px 20px;
   border-radius: 10px;
   background: linear-gradient(100deg, var(--a-maroon-deep), var(--a-maroon) 50%, var(--a-maroon-deep));
   color: #fff;
@@ -2922,13 +2922,6 @@ a.preset {
   font-size: 13px;
 }
 
-.offer-preview__close {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.7;
-}
 
 .chips--buttons {
   margin: 0;

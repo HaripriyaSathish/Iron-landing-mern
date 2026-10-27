@@ -198,11 +198,19 @@ export const socialLinks = [
 export const offerBar = {
   enabled: true,
   badge_text: "Flash Offer",
-  message: "FREE pickup & delivery within 5 km on orders above ₹1500 · Below ₹1500, just ₹100 service charge",
+  // Free pickup lives in the moving line under the hero; the strip shows just the badge until an offer is typed
+  message: "",
   link_text: "Book Now",
   link_url: "#contact",
   ends_at: null,
 };
+
+// Moving line under the hero. Icon keys come from client/src/lib/icons.js; **words** are highlighted
+export const tickerItems = [
+  { icon: "Truck", text: "**FREE** pickup & delivery within 5 km on orders above ₹1500" },
+  { icon: "Wallet", text: "Below ₹1500, just **₹100** service charge" },
+  { icon: "Package", text: "**Courier service** available" },
+];
 
 // Email alerts start switched off; SMTP details are entered in the admin panel
 export const mailSettings = {

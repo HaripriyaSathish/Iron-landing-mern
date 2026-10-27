@@ -70,6 +70,7 @@ try {
   await seedSingle("footer_settings", seed.footerSettings);
   await seedList("social_links", seed.socialLinks);
   await seedSingle("offer_bar", seed.offerBar);
+  await seedList("ticker_items", seed.tickerItems);
   await seedSingle("mail_settings", seed.mailSettings);
   await seedSingle("music_settings", seed.musicSettings);
   await seedList("languages", seed.languages);

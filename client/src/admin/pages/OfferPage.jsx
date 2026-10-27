@@ -100,14 +100,13 @@ export default function OfferPage() {
               {form.badge_text}
             </span>
           )}
-          <span>{form.message || 'Your offer text'}</span>
+          {form.message && <span>{form.message}</span>}
           {form.ends_at && !ended && <span className="offer-preview__timer">Ends in 2d 04:12:09</span>}
           {form.link_text && (
             <span className="offer-preview__link">
               {form.link_text} <ArrowRight size={13} />
             </span>
           )}
-          <X size={15} className="offer-preview__close" />
         </div>
         {!form.enabled && <p className="field__hint mt">Switched off: visitors don&apos;t see the strip.</p>}
         {form.enabled && ended && (
@@ -135,8 +134,13 @@ export default function OfferPage() {
           <Field label="Badge" hint="The small gold tag, e.g. Flash Offer, Limited Time." count={form.badge_text.length} max={40}>
             <input className="input" maxLength={40} value={form.badge_text} onChange={set('badge_text')} />
           </Field>
-          <Field label="Offer text" count={form.message.length} max={255}>
-            <textarea className="input" rows={3} required maxLength={255} value={form.message} onChange={set('message')} />
+          <Field
+            label="Offer text (optional)"
+            hint="Leave empty to show just the badge and button."
+            count={form.message.length}
+            max={255}
+          >
+            <textarea className="input" rows={3} maxLength={255} value={form.message} onChange={set('message')} />
           </Field>
         </Card>
 
@@ -160,8 +164,8 @@ export default function OfferPage() {
           <p className="note mt">
             <Info size={16} />
             <span>
-              Visitors can close the strip with ✕. It stays closed for that visit, and shows again whenever you save a
-              new offer. Tamil and French words go in Languages → Flash Offer.
+              The strip stays on every page visit until you switch it off or the end time passes. Tamil and French
+              words go in Languages → Flash Offer.
             </span>
           </p>
         </Card>

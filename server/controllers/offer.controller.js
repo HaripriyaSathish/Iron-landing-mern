@@ -23,12 +23,13 @@ export async function updateOffer(req, res) {
   const body = req.body ?? {};
   const data = {};
 
-  if (body.message !== undefined) {
-    data.message = String(body.message).trim();
-    if (!data.message) throw httpError(400, "Offer text cannot be empty");
-  }
+  // Empty offer text: the strip shows just the badge and button
+  if (body.message !== undefined) data.message = String(body.message).trim();
   for (const key of ["badge_text", "link_text", "link_url"]) {
     if (body[key] !== undefined) data[key] = String(body[key]).trim() || null;
+  }
+  if (data.message === "" && !(data.badge_text ?? body.badge_text)) {
+    throw httpError(400, "Add a badge or some offer text");
   }
   if (data.link_url && !LINK_RE.test(data.link_url)) {
     throw httpError(400, "Button link must be a section (#contact) or start with https://");

@@ -321,6 +321,17 @@ const schema = [
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT offer_single_row CHECK (id = 1)
   )`,
+
+  // Moving line under the hero: short selling points (free pickup, courier...) scrolling sideways
+  `CREATE TABLE IF NOT EXISTS ticker_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    icon VARCHAR(40) NOT NULL,
+    text VARCHAR(160) NOT NULL,
+    sort_order INT NOT NULL DEFAULT 0,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  )`,
 ];
 
 // The DDL above is MySQL; Neon (Postgres) gets the same tables with these swaps.

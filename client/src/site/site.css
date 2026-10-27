@@ -16,7 +16,9 @@
   color: var(--ink);
   font-family: var(--font-body);
   line-height: 1.6;
-  /* Side-slide reveals start off-centre; clipping here means they can never cause sideways scroll */
+  /* Side-slide reveals and the moving offer line run off-screen; clipping here means they can never
+     cause sideways scroll. hidden first for older iPhones (Safari < 16) that don't know clip. */
+  overflow-x: hidden;
   overflow-x: clip;
 }
 
@@ -615,6 +617,12 @@
   }
 }
 
+/* No offer text: the badge alone, a little bigger */
+.offer--badge-only .offer__badge {
+  padding: 5px 16px;
+  font-size: 13px;
+}
+
 /* Gold light sweeping across every few seconds */
 .offer::before {
   content: '';
@@ -643,7 +651,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px 14px;
-  padding: 9px 44px;
+  padding: 9px 24px;
   text-align: center;
 }
 
@@ -742,33 +750,11 @@
   color: #fff;
 }
 
-.offer__close {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.75);
-  cursor: pointer;
-  transform: translateY(-50%);
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.offer__close:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-}
 
 @media (max-width: 640px) {
   .offer__inner {
     gap: 6px 10px;
-    padding: 8px 38px 8px 14px;
+    padding: 8px 14px;
   }
 
   .site .offer__text {
@@ -971,6 +957,287 @@
 .hero__dots button.is-active {
   width: 44px;
   background: var(--gold);
+}
+
+/* ───────── Moving offer line (under the hero) ───────── */
+/* Maroon band between double gold rules, fixed offer tag on the left, highlights glowing in gold */
+.ticker {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--maroon-deep), var(--maroon) 30%, #8e2a50 50%, var(--maroon) 70%, var(--maroon-deep));
+  background-size: 200% 100%;
+  color: var(--cream);
+  border-block: 3px double var(--gold);
+  box-shadow: 0 14px 30px -18px rgba(116, 31, 63, 0.7);
+  animation: ticker-glow 8s ease-in-out infinite;
+}
+
+@keyframes ticker-glow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Gold light sweeping across the band */
+.ticker::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(100deg, transparent 38%, rgba(236, 210, 154, 0.3) 50%, transparent 62%);
+  transform: translateX(-100%);
+  animation: ticker-shine 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ticker-shine {
+  0%,
+  40% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Fixed gold tag with an arrow tip pointing into the moving text */
+.ticker__label {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  padding: 0 26px 0 22px;
+  background: linear-gradient(135deg, #e2c58a, var(--gold) 55%, #b8914a);
+  color: var(--maroon-deep);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%);
+  animation: ticker-tag 2s ease-in-out infinite;
+}
+
+@keyframes ticker-tag {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.15) drop-shadow(0 0 6px rgba(236, 210, 154, 0.8));
+  }
+}
+
+.ticker__flame {
+  color: #c2410c;
+  animation: ticker-flame 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes ticker-flame {
+  from {
+    transform: scale(0.9) rotate(-6deg);
+  }
+  to {
+    transform: scale(1.15) rotate(6deg);
+  }
+}
+
+/* Text fades out softly at both edges instead of being cut */
+.ticker__viewport {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  padding: 14px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll var(--ticker-time, 60s) linear infinite;
+}
+
+.ticker:hover .ticker__track {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker__group {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ticker__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 30px;
+  white-space: nowrap;
+}
+
+.ticker__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ecd29a, var(--gold));
+  color: var(--maroon-deep);
+  animation: ticker-bob 2.4s ease-in-out infinite;
+}
+
+/* Gold ring rippling out of each icon */
+.ticker__icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  animation: ticker-ripple 2s ease-out infinite;
+}
+
+.ticker__item:nth-child(even) .ticker__icon,
+.ticker__item:nth-child(even) .ticker__icon::after {
+  animation-delay: -1.2s;
+}
+
+@keyframes ticker-bob {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.08);
+  }
+}
+
+@keyframes ticker-ripple {
+  from {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+
+.ticker__text {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* **Highlighted** words: shimmering gold pill */
+.ticker .hl {
+  display: inline-block;
+  margin: 0 3px;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #b8914a, #f3dca8, #b8914a);
+  background-size: 200% 100%;
+  color: var(--maroon-deep);
+  font-weight: 800;
+  animation: ticker-pill 1.6s ease-in-out infinite, ticker-pill-shine 2.5s linear infinite;
+}
+
+@keyframes ticker-pill {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(236, 210, 154, 0.6);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 16px 3px rgba(236, 210, 154, 0.55);
+    transform: scale(1.07);
+  }
+}
+
+@keyframes ticker-pill-shine {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.ticker__star {
+  margin-left: 18px;
+  color: var(--gold);
+  font-size: 20px;
+  text-shadow: 0 0 10px rgba(236, 210, 154, 0.9);
+  animation: ticker-spin 3s linear infinite;
+}
+
+@keyframes ticker-spin {
+  0% {
+    transform: rotate(0) scale(0.8);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.25);
+  }
+  100% {
+    transform: rotate(360deg) scale(0.8);
+  }
+}
+
+@media (max-width: 640px) {
+  /* Phones: the tag becomes a centred strip on top, the moving line gets the full width below */
+  .ticker {
+    flex-direction: column;
+  }
+
+  .ticker__label {
+    justify-content: center;
+    padding: 5px 12px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    clip-path: none;
+  }
+
+  .ticker__viewport {
+    padding: 10px 0;
+  }
+
+  .ticker__icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .ticker__text {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker,
+  .ticker::after,
+  .ticker__label,
+  .ticker__flame,
+  .ticker__track,
+  .ticker__icon,
+  .ticker__icon::after,
+  .ticker .hl,
+  .ticker__star {
+    animation: none;
+  }
 }
 
 /* ───────── About ───────── */

@@ -21,6 +21,7 @@ import languageRoutes from "./routes/language.routes.js";
 import musicRoutes from "./routes/music.routes.js";
 import specialtyRoutes from "./routes/specialty.routes.js";
 import offerRoutes from "./routes/offer.routes.js";
+import tickerRoutes from "./routes/ticker.routes.js";
 import { localize } from "./middleware/localize.js";
 import { notFound, errorHandler } from "./middleware/error.js";
 dotenv.config();
@@ -54,6 +55,7 @@ app.use("/api/languages", languageRoutes);
 app.use("/api/music", musicRoutes);
 app.use("/api/specialties", specialtyRoutes);
 app.use("/api/offer", offerRoutes);
+app.use("/api/ticker", tickerRoutes);
 
 // One website: when the React app has been built (on Render), serve it from here too.
 // Any non-API page (/, /admin, /admin/menu ...) gets index.html and React Router takes over.

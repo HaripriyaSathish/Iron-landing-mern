@@ -1,5 +1,6 @@
 import {
   BookHeart,
+  ChevronsRight,
   Compass,
   Gem,
   HeartHandshake,
@@ -44,6 +45,7 @@ export const groups = [
     icon: LayoutTemplate,
     items: [
       { path: '/admin/slider', icon: Images, title: 'Hero Slider', hint: 'Big welcome banner' },
+      { path: '/admin/ticker', icon: ChevronsRight, title: 'Moving Offer Line', hint: 'Free pickup, courier & more' },
       { path: '/admin/story', icon: BookHeart, title: 'About Us', hint: 'Your story, photo & highlights' },
       { path: '/admin/services', icon: Shirt, title: 'Services & Prices', hint: 'Service cards & rates' },
       { path: '/admin/specialties', icon: Gem, title: 'Specialties & B2B', hint: 'Saree Polish & hotel service' },

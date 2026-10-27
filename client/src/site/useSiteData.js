@@ -17,6 +17,7 @@ const ENDPOINTS = {
   ui: '/languages/ui',
   music: '/music',
   offer: '/offer',
+  ticker: '/ticker',
 }
 
 // lang: language code, or undefined for the main language. Switching keeps the old texts on screen

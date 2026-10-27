@@ -1,24 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { ArrowRight, X, Zap } from 'lucide-react'
-
-// A visitor who closes the strip doesn't see that offer again this visit; an edited offer shows again
-const CLOSED_KEY = 'imk_offer_closed'
-
-const readClosed = () => {
-  try {
-    return sessionStorage.getItem(CLOSED_KEY)
-  } catch {
-    return null
-  }
-}
-
-const writeClosed = (value) => {
-  try {
-    sessionStorage.setItem(CLOSED_KEY, value)
-  } catch {
-    // Private mode: it just shows again on the next page load
-  }
-}
+import { ArrowRight, Zap } from 'lucide-react'
 
 // Gold sparkles twinkling across the strip: [left %, top %, delay s, size px]
 const SPARKLES = [
@@ -47,13 +28,11 @@ function timeLeft(endsAt, now) {
 // and the hero move down to make room for it.
 export default function OfferBar({ offer }) {
   const ref = useRef(null)
-  const key = offer ? `${offer.updated_at}|${offer.message}` : null
-  const [closedKey, setClosedKey] = useState(readClosed)
   const [now, setNow] = useState(() => Date.now())
 
   const countdown = offer?.ends_at ? timeLeft(offer.ends_at, now) : null
   const ended = !!offer?.ends_at && !countdown
-  const visible = !!offer && closedKey !== key && !ended
+  const visible = !!offer && !ended
 
   useEffect(() => {
     if (!visible || !offer.ends_at) return
@@ -77,13 +56,8 @@ export default function OfferBar({ offer }) {
 
   if (!visible) return null
 
-  const close = () => {
-    writeClosed(key)
-    setClosedKey(key)
-  }
-
   return (
-    <div className="offer" ref={ref} role="region" aria-label={offer.badge_text || 'Offer'}>
+    <div className={`offer ${offer.message ? '' : 'offer--badge-only'}`} ref={ref} role="region" aria-label={offer.badge_text || 'Offer'}>
       {SPARKLES.map(([left, top, delay, size]) => (
         <span
           key={left}
@@ -99,9 +73,11 @@ export default function OfferBar({ offer }) {
             {offer.badge_text}
           </span>
         )}
-        <p className="offer__text" key={offer.message}>
-          {offer.message}
-        </p>
+        {offer.message && (
+          <p className="offer__text" key={offer.message}>
+            {offer.message}
+          </p>
+        )}
         {countdown && (
           <span className="offer__timer" aria-live="off">
             <span key={countdown.slice(-1)} className="offer__tick">
@@ -116,9 +92,6 @@ export default function OfferBar({ offer }) {
           </a>
         )}
       </div>
-      <button type="button" className="offer__close" onClick={close} aria-label="Close offer">
-        <X size={16} />
-      </button>
     </div>
   )
 }
