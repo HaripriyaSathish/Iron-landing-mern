@@ -67,7 +67,15 @@ export default function Footer({ data }) {
       </div>
 
       <div className="footer__bottom">
-        <div className="container">{copyright}</div>
+        <div className="container footer__bottom-inner">
+          <span>{copyright}</span>
+          <span className="footer__credit">
+            Designed &amp; Developed by{' '}
+            <a href="https://vetriitsystems.com/" target="_blank" rel="noopener">
+              Vetri IT Systems
+            </a>
+          </span>
+        </div>
       </div>
     </footer>
   )
