@@ -58,7 +58,7 @@ export const aboutSection = {
   tagline: "About Us",
   heading: "Care That Makes Every Fabric Feel Special",
   content: [
-    "At Vastra Care, we believe every garment carries a story — from the silk saree worn at a wedding to the crisp veshti for a festival morning. Our trained team handles each fabric by hand, choosing the right heat, steam and finish for its weave.",
+    "At Iron Me.Ka, we believe every garment carries a story — from the silk saree worn at a wedding to the crisp veshti for a festival morning. Our trained team handles each fabric by hand, choosing the right heat, steam and finish for its weave.",
     "With a deep respect for traditional wear and an eye for detail, we deliver pieces that look, feel and drape their very best.",
   ].join("\n\n"),
   image_alt: "Woman carefully pleating a cream and gold silk saree",
@@ -99,7 +99,7 @@ export const services = [
 
 export const whySection = {
   tagline: "Why Choose Us",
-  heading: "The Vastra Care Difference",
+  heading: "The Iron Me.Ka Difference",
 };
 
 export const whyFeatures = [
@@ -184,7 +184,7 @@ export const footerSettings = {
   hours_short: "Mon–Sat 9 AM – 8 PM",
   socials_title: "Follow Us",
   socials_text: "Stay connected for offers, saree care tips and our latest work.",
-  copyright_text: "© {year} Vastra Care. All rights reserved.",
+  copyright_text: "© {year} Iron Me.Ka. All rights reserved.",
 };
 
 // Placeholder profile links: replace with the real pages from the admin panel
