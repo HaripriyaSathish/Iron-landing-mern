@@ -965,6 +965,8 @@
   position: relative;
   display: flex;
   align-items: stretch;
+  /* Breathing room under the hero */
+  margin-top: 32px;
   overflow: hidden;
   background: linear-gradient(90deg, var(--maroon-deep), var(--maroon) 30%, #8e2a50 50%, var(--maroon) 70%, var(--maroon-deep));
   background-size: 200% 100%;
@@ -1202,6 +1204,7 @@
   /* Phones: the tag becomes a centred strip on top, the moving line gets the full width below */
   .ticker {
     flex-direction: column;
+    margin-top: 20px;
   }
 
   .ticker__label {
