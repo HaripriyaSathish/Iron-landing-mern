@@ -1,4 +1,3 @@
-import { Flame } from 'lucide-react'
 import { getIcon } from '../lib/icons'
 import RichText from './RichText'
 
@@ -30,19 +29,14 @@ function Group({ items, hidden }) {
   )
 }
 
-// Moving line of selling points under the hero, with a fixed "Special Offers" tag on the left.
+// Moving line of selling points under the hero.
 // The track holds two identical halves and slides left by one half, so the loop never shows a gap.
 // Pauses while pointed at.
-export default function Ticker({ items, labels = {} }) {
+export default function Ticker({ items }) {
   if (!items?.length) return null
-  const label = labels.ticker_label || 'Special Offers'
 
   return (
-    <section className="ticker" aria-label={label}>
-      <span className="ticker__label">
-        <Flame size={16} fill="currentColor" className="ticker__flame" />
-        <span>{label}</span>
-      </span>
+    <section className="ticker" aria-label="Offers">
       <div className="ticker__viewport">
         <div className="ticker__track" style={{ '--ticker-time': `${items.length * REPEAT * 6}s` }}>
           <Group items={items} />

@@ -13,8 +13,6 @@ export const UI_TEXT = {
   music_pause: "Pause music",
   address_label: "Address",
   hours_label: "Business Hours",
-  // Tag on the left of the moving offer line
-  ticker_label: "Special Offers",
 };
 
 // Everything a visitor reads, grouped like the admin sidebar and in website order.
@@ -195,7 +193,6 @@ export const GROUPS = [
           ["music_pause", "Music button: pause"],
           ["address_label", "Label: Address"],
           ["hours_label", "Label: Business Hours"],
-          ["ticker_label", "Label: Special Offers (moving line)"],
         ],
       },
     ],

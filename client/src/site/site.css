@@ -960,7 +960,7 @@
 }
 
 /* ───────── Moving offer line (under the hero) ───────── */
-/* Maroon band between double gold rules, fixed offer tag on the left, highlights glowing in gold */
+/* Maroon band between double gold rules, highlights glowing in gold */
 .ticker {
   position: relative;
   display: flex;
@@ -1005,50 +1005,6 @@
   }
   100% {
     transform: translateX(100%);
-  }
-}
-
-/* Fixed gold tag with an arrow tip pointing into the moving text */
-.ticker__label {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: none;
-  padding: 0 26px 0 22px;
-  background: linear-gradient(135deg, #e2c58a, var(--gold) 55%, #b8914a);
-  color: var(--maroon-deep);
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%);
-  animation: ticker-tag 2s ease-in-out infinite;
-}
-
-@keyframes ticker-tag {
-  0%,
-  100% {
-    filter: brightness(1);
-  }
-  50% {
-    filter: brightness(1.15) drop-shadow(0 0 6px rgba(236, 210, 154, 0.8));
-  }
-}
-
-.ticker__flame {
-  color: #c2410c;
-  animation: ticker-flame 0.9s ease-in-out infinite alternate;
-}
-
-@keyframes ticker-flame {
-  from {
-    transform: scale(0.9) rotate(-6deg);
-  }
-  to {
-    transform: scale(1.15) rotate(6deg);
   }
 }
 
@@ -1201,18 +1157,8 @@
 }
 
 @media (max-width: 640px) {
-  /* Phones: the tag becomes a centred strip on top, the moving line gets the full width below */
   .ticker {
-    flex-direction: column;
     margin-top: 20px;
-  }
-
-  .ticker__label {
-    justify-content: center;
-    padding: 5px 12px;
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    clip-path: none;
   }
 
   .ticker__viewport {
@@ -1232,8 +1178,6 @@
 @media (prefers-reduced-motion: reduce) {
   .ticker,
   .ticker::after,
-  .ticker__label,
-  .ticker__flame,
   .ticker__track,
   .ticker__icon,
   .ticker__icon::after,

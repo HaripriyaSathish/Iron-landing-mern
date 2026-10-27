@@ -197,11 +197,11 @@ export const socialLinks = [
 // Flash offer strip above the header: starts with the free pickup & delivery offer
 export const offerBar = {
   enabled: true,
-  badge_text: "Flash Offer",
-  // Free pickup lives in the moving line under the hero; the strip shows just the badge until an offer is typed
-  message: "",
-  link_text: "Book Now",
-  link_url: "#contact",
+  // Sample offer for the client to replace in Admin → Flash Offer Banner (free pickup lives in the moving line)
+  badge_text: "Special Offer",
+  message: "Get 10% OFF on your first saree polishing order",
+  link_text: null,
+  link_url: null,
   ends_at: null,
 };
 
