@@ -183,6 +183,7 @@ export const footerSettings = {
   contact_title: "Contact",
   hours_short: "Mon–Sat 9 AM – 8 PM",
   socials_title: "Follow Us",
+  socials_text: "Stay connected for offers, saree care tips and our latest work.",
   copyright_text: "© {year} Vastra Care. All rights reserved.",
 };
 

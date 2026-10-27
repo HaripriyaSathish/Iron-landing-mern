@@ -33,7 +33,7 @@ export const groups = [
       { path: '/admin/menu', icon: Compass, title: 'Navbar & Menu', hint: 'Logo, links & top button' },
       { path: '/admin/offer', icon: Megaphone, title: 'Flash Offer Banner', hint: 'Top strip for offers & free pickup' },
       { path: '/admin/quick-connect', icon: MessageCircleHeart, title: 'Floating Buttons', hint: 'Call, WhatsApp & email' },
-      { path: '/admin/footer', icon: PanelBottom, title: 'Footer', hint: 'Intro, socials & copyright' },
+      { path: '/admin/footer', icon: PanelBottom, title: 'Footer', hint: 'Follow Us links, intro & copyright' },
       { path: '/admin/music', icon: Music, title: 'Background Music', hint: 'Soft music & play button' },
       { path: '/admin/languages', icon: Languages, title: 'Languages', hint: 'Tamil, French & more' },
       { path: '/admin/email', icon: MailCheck, title: 'Email Alerts', hint: 'SMTP & password alerts' },

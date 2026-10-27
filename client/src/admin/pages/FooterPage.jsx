@@ -27,6 +27,7 @@ const FIELDS = [
   'contact_title',
   'hours_short',
   'socials_title',
+  'socials_text',
   'copyright_text',
 ]
 const emptySocial = { platform: 'instagram', url: 'https://', is_active: true }
@@ -142,7 +143,7 @@ export default function FooterPage() {
       <PageHeader
         icon={PanelBottom}
         title="Footer"
-        subtitle="The dark strip at the bottom of every page: your short intro, social links and copyright line."
+        subtitle="The dark strip at the bottom of every page, and the Follow Us section with your social links just above it."
       />
 
       <div className="grid-2 grid-2--wide-left">
@@ -178,9 +179,14 @@ export default function FooterPage() {
                 <input className="input" value={form.hours_short} onChange={set('hours_short')} />
               </Field>
             </div>
-            <Field label="Heading above the social icons" hint="e.g. Follow Us. Leave empty to show the icons without a heading.">
-              <input className="input" value={form.socials_title} onChange={set('socials_title')} />
-            </Field>
+            <div className="row-2">
+              <Field label="Follow Us heading" hint="The big heading of the social section above the footer.">
+                <input className="input" value={form.socials_title} onChange={set('socials_title')} />
+              </Field>
+              <Field label="Line under the heading" hint="Leave empty for no line." count={form.socials_text.length} max={160}>
+                <input className="input" maxLength={160} value={form.socials_text} onChange={set('socials_text')} />
+              </Field>
+            </div>
             <Field label="Copyright line" hint={`Type {year} for the current year. Shows as: ${form.copyright_text.replaceAll('{year}', year)}`}>
               <input className="input" required value={form.copyright_text} onChange={set('copyright_text')} />
             </Field>
@@ -194,7 +200,7 @@ export default function FooterPage() {
         </form>
 
         <div className="stack">
-          <Card title="Social links" subtitle="The round icons under your intro.">
+          <Card title="Social links" subtitle="The cards in the Follow Us section above the footer, in this order.">
             {socials.length === 0 ? (
               <EmptyState icon={PanelBottom} title="No social links" text="Add your Instagram, YouTube, WhatsApp or Telegram." />
             ) : (

@@ -222,6 +222,7 @@ const schema = [
     contact_title VARCHAR(60) NOT NULL,
     hours_short VARCHAR(100) NULL,
     socials_title VARCHAR(60) NULL,
+    socials_text VARCHAR(160) NULL,
     copyright_text VARCHAR(200) NOT NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT footer_single_row CHECK (id = 1)
@@ -360,6 +361,11 @@ const migrations = [
   {
     mysql: "ALTER TABLE footer_settings ADD COLUMN socials_title VARCHAR(60) NULL AFTER hours_short",
     postgres: "ALTER TABLE footer_settings ADD COLUMN IF NOT EXISTS socials_title VARCHAR(60) NULL",
+  },
+  // Line under "Follow Us" in the social section above the footer
+  {
+    mysql: "ALTER TABLE footer_settings ADD COLUMN socials_text VARCHAR(160) NULL AFTER socials_title",
+    postgres: "ALTER TABLE footer_settings ADD COLUMN IF NOT EXISTS socials_text VARCHAR(160) NULL",
   },
   {
     mysql: "UPDATE footer_settings SET socials_title = 'Follow Us' WHERE socials_title IS NULL",

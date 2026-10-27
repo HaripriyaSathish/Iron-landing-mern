@@ -9,6 +9,7 @@ const FIELDS = [
   "contact_title",
   "hours_short",
   "socials_title",
+  "socials_text",
   "copyright_text",
 ];
 

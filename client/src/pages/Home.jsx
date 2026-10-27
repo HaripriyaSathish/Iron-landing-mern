@@ -13,6 +13,7 @@ import WhyUs from '../site/WhyUs'
 import HowItWorks from '../site/HowItWorks'
 import Testimonials from '../site/Testimonials'
 import Contact from '../site/Contact'
+import FollowUs from '../site/FollowUs'
 import Footer from '../site/Footer'
 import FloatingContacts from '../site/FloatingContacts'
 import MusicPlayer from '../site/MusicPlayer'
@@ -40,6 +41,7 @@ export default function Home() {
         <HowItWorks data={data.how} />
         <Testimonials data={data.testimonials} />
         <Contact data={data.contact} labels={data.ui} />
+        <FollowUs data={data.footer} />
       </main>
       <Footer data={data.footer} />
       <FloatingContacts contacts={data.quickContacts} />

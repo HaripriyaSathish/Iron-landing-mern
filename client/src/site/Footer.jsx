@@ -1,10 +1,9 @@
 import { mailHref, mapHref, telHref } from '../lib/contacts'
-import { SOCIALS } from '../lib/socials'
 import { revealDelay } from './useScrollReveal'
 
 export default function Footer({ data }) {
   if (!data?.settings) return null
-  const { settings, logo, links = [], services = [], contact, socials = [] } = data
+  const { settings, logo, links = [], services = [], contact } = data
   const copyright = settings.copyright_text.replaceAll('{year}', new Date().getFullYear())
 
   return (
@@ -15,19 +14,6 @@ export default function Footer({ data }) {
             {logo?.url ? <img src={logo.url} alt={logo.alt || 'Iron Me Ka'} /> : <span>Iron Me Ka</span>}
           </a>
           {settings.about_text && <p>{settings.about_text}</p>}
-          {socials.length > 0 && settings.socials_title && <h3 className="footer__follow">{settings.socials_title}</h3>}
-          {socials.length > 0 && (
-            <div className="footer__socials">
-              {socials.map((s) => {
-                const { icon: Icon, label } = SOCIALS[s.platform] ?? SOCIALS.website
-                return (
-                  <a key={s.id} href={s.url} target="_blank" rel="noreferrer" aria-label={label}>
-                    <Icon size={16} />
-                  </a>
-                )
-              })}
-            </div>
-          )}
         </div>
 
         <nav className="footer__col" aria-label={settings.links_title} data-reveal="up" style={revealDelay(1)}>
