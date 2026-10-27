@@ -223,6 +223,8 @@ const schema = [
     hours_short VARCHAR(100) NULL,
     socials_title VARCHAR(60) NULL,
     socials_text VARCHAR(160) NULL,
+    registration_label VARCHAR(60) NULL,
+    registration_number VARCHAR(80) NULL,
     copyright_text VARCHAR(200) NOT NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT footer_single_row CHECK (id = 1)
@@ -366,6 +368,19 @@ const migrations = [
   {
     mysql: "ALTER TABLE footer_settings ADD COLUMN socials_text VARCHAR(160) NULL AFTER socials_title",
     postgres: "ALTER TABLE footer_settings ADD COLUMN IF NOT EXISTS socials_text VARCHAR(160) NULL",
+  },
+  // Business registration number in the footer's bottom line (sample value until the client enters theirs)
+  {
+    mysql: "ALTER TABLE footer_settings ADD COLUMN registration_label VARCHAR(60) NULL AFTER socials_text",
+    postgres: "ALTER TABLE footer_settings ADD COLUMN IF NOT EXISTS registration_label VARCHAR(60) NULL",
+  },
+  {
+    mysql: "ALTER TABLE footer_settings ADD COLUMN registration_number VARCHAR(80) NULL AFTER registration_label",
+    postgres: "ALTER TABLE footer_settings ADD COLUMN IF NOT EXISTS registration_number VARCHAR(80) NULL",
+  },
+  {
+    mysql: "UPDATE footer_settings SET registration_label = 'Reg. No.', registration_number = 'UDYAM-PY-00-0000000' WHERE registration_label IS NULL AND registration_number IS NULL",
+    postgres: "UPDATE footer_settings SET registration_label = 'Reg. No.', registration_number = 'UDYAM-PY-00-0000000' WHERE registration_label IS NULL AND registration_number IS NULL",
   },
   {
     mysql: "UPDATE footer_settings SET socials_title = 'Follow Us' WHERE socials_title IS NULL",

@@ -69,6 +69,12 @@ export default function Footer({ data }) {
       <div className="footer__bottom">
         <div className="container footer__bottom-inner">
           <span>{copyright}</span>
+          {settings.registration_number && (
+            <span className="footer__reg">
+              {settings.registration_label && `${settings.registration_label} `}
+              {settings.registration_number}
+            </span>
+          )}
           <span className="footer__credit">
             Designed &amp; Developed by{' '}
             <a href="https://vetriitsystems.com/" target="_blank" rel="noopener">

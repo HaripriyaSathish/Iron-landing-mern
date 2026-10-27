@@ -2212,6 +2212,7 @@
   gap: 6px 14px;
 }
 
+.footer__reg::before,
 .footer__credit::before {
   content: '·';
   margin-right: 14px;
@@ -2240,6 +2241,7 @@
     flex-direction: column;
   }
 
+  .footer__reg::before,
   .footer__credit::before {
     content: none;
   }

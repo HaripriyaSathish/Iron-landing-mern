@@ -10,6 +10,8 @@ const FIELDS = [
   "hours_short",
   "socials_title",
   "socials_text",
+  "registration_label",
+  "registration_number",
   "copyright_text",
 ];
 

@@ -225,6 +225,7 @@ export const GROUPS = [
           ["contact_title", "Contact heading"],
           ["hours_short", "Short hours"],
           ["copyright_text", "Copyright line"],
+          ["registration_label", "Registration label"],
         ],
       },
     ],

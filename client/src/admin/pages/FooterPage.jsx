@@ -5,7 +5,17 @@ import api, { errorMessage } from '../../lib/api'
 import { useToast } from '../components/Toast'
 import { Button, Card, Field, PageHeader, PageLoader } from '../components/ui'
 
-const FIELDS = ['about_text', 'links_title', 'services_title', 'services_limit', 'contact_title', 'hours_short', 'copyright_text']
+const FIELDS = [
+  'about_text',
+  'links_title',
+  'services_title',
+  'services_limit',
+  'contact_title',
+  'hours_short',
+  'copyright_text',
+  'registration_label',
+  'registration_number',
+]
 
 // Parts of the footer that come from other pages, so they are edited in one place
 const REUSED = [
@@ -93,6 +103,14 @@ export default function FooterPage() {
             <Field label="Copyright line" hint={`Type {year} for the current year. Shows as: ${form.copyright_text.replaceAll('{year}', year)}`}>
               <input className="input" required value={form.copyright_text} onChange={set('copyright_text')} />
             </Field>
+            <div className="row-2">
+              <Field label="Registration label" hint="e.g. Reg. No., GSTIN or Udyam No.">
+                <input className="input" maxLength={60} value={form.registration_label} onChange={set('registration_label')} />
+              </Field>
+              <Field label="Registration number" hint="Shown next to the copyright line. Leave empty to hide it.">
+                <input className="input" maxLength={80} value={form.registration_number} onChange={set('registration_number')} />
+              </Field>
+            </div>
             <div className="card__foot">
               <span />
               <Button type="submit" icon={Save} loading={saving}>

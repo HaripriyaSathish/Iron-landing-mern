@@ -185,6 +185,9 @@ export const footerSettings = {
   socials_title: "Follow Us",
   socials_text: "Stay connected for offers, saree care tips and our latest work.",
   copyright_text: "© {year} Iron Me.Ka. All rights reserved.",
+  // Sample number: the client enters the real one in Admin → Footer
+  registration_label: "Reg. No.",
+  registration_number: "UDYAM-PY-00-0000000",
 };
 
 // Placeholder profile links: replace with the real pages from the admin panel
