@@ -1683,8 +1683,14 @@ a.link-test:hover {
   color: var(--a-gold);
 }
 
-.type-picker--6 {
-  grid-template-columns: repeat(3, 1fr);
+.type-picker--8 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 520px) {
+  .type-picker--8 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .reused {
@@ -2866,4 +2872,76 @@ a.preset {
 
 .spec-card__bar .toggle {
   margin-left: auto;
+}
+
+/* Flash offer page: preview of the strip at the top of the website */
+.offer-preview {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 12px;
+  padding: 11px 40px;
+  border-radius: 10px;
+  background: linear-gradient(100deg, var(--a-maroon-deep), var(--a-maroon) 50%, var(--a-maroon-deep));
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.offer-preview__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--a-gold);
+  color: var(--a-ink);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.offer-preview__timer {
+  padding: 2px 8px;
+  border: 1px solid rgba(202, 165, 94, 0.55);
+  border-radius: 6px;
+  color: var(--a-gold);
+  font-size: 12.5px;
+}
+
+.offer-preview__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px solid currentColor;
+  color: var(--a-gold);
+  font-size: 13px;
+}
+
+.offer-preview__close {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.7;
+}
+
+.chips--buttons {
+  margin: 0;
+}
+
+.chips--buttons .chip {
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.chips--buttons .chip:hover {
+  border-color: var(--a-gold);
+  transform: translateY(-1px);
 }

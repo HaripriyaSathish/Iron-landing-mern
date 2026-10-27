@@ -2,7 +2,7 @@
 // Copies every table from the local MySQL database to the target, replacing what is there.
 // Images are not copied: they live on Cloudinary and the rows only hold their links.
 import { createDb } from "../config/db.js";
-import schema, { schemaFor } from "../db/schema.js";
+import schema, { schemaFor, migrationsFor } from "../db/schema.js";
 
 const targetUrl = process.env.TARGET_DATABASE_URL;
 if (!targetUrl) {
@@ -18,6 +18,14 @@ const tables = schema.map((sql) => sql.match(/CREATE TABLE IF NOT EXISTS (\w+)/)
 
 try {
   for (const statement of schemaFor(target.dialect)) await target.query(statement);
+  // Columns added since the target's tables were first created
+  for (const statement of migrationsFor(target.dialect)) {
+    try {
+      await target.query(statement);
+    } catch (err) {
+      if (err.code !== "ER_DUP_FIELDNAME") throw err;
+    }
+  }
 
   for (const table of tables) {
     const [rows] = await source.query(`SELECT * FROM ${table} ORDER BY id`);

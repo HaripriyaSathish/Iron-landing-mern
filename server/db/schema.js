@@ -221,6 +221,7 @@ const schema = [
     services_limit TINYINT UNSIGNED NOT NULL DEFAULT 6,
     contact_title VARCHAR(60) NOT NULL,
     hours_short VARCHAR(100) NULL,
+    socials_title VARCHAR(60) NULL,
     copyright_text VARCHAR(200) NOT NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT footer_single_row CHECK (id = 1)
@@ -306,6 +307,20 @@ const schema = [
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT translation_unique UNIQUE (lang_code, entity, entity_id, field)
   )`,
+
+  // Single-row table (id is always 1). The flash offer strip above the header. ends_at is an ISO date
+  // (with time zone) after which the strip hides itself; empty means it runs until switched off.
+  `CREATE TABLE IF NOT EXISTS offer_bar (
+    id TINYINT PRIMARY KEY DEFAULT 1,
+    enabled BOOLEAN NOT NULL DEFAULT FALSE,
+    badge_text VARCHAR(40) NULL,
+    message VARCHAR(255) NOT NULL,
+    link_text VARCHAR(40) NULL,
+    link_url VARCHAR(255) NULL,
+    ends_at VARCHAR(40) NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT offer_single_row CHECK (id = 1)
+  )`,
 ];
 
 // The DDL above is MySQL; Neon (Postgres) gets the same tables with these swaps.
@@ -329,6 +344,15 @@ const migrations = [
   {
     mysql: "ALTER TABLE contact_section MODIFY whatsapp VARCHAR(255) NULL",
     postgres: "ALTER TABLE contact_section ALTER COLUMN whatsapp TYPE VARCHAR(255)",
+  },
+  // "Follow Us" heading above the footer social icons (MySQL has no ADD COLUMN IF NOT EXISTS: initDb skips a duplicate)
+  {
+    mysql: "ALTER TABLE footer_settings ADD COLUMN socials_title VARCHAR(60) NULL AFTER hours_short",
+    postgres: "ALTER TABLE footer_settings ADD COLUMN IF NOT EXISTS socials_title VARCHAR(60) NULL",
+  },
+  {
+    mysql: "UPDATE footer_settings SET socials_title = 'Follow Us' WHERE socials_title IS NULL",
+    postgres: "UPDATE footer_settings SET socials_title = 'Follow Us' WHERE socials_title IS NULL",
   },
 ];
 

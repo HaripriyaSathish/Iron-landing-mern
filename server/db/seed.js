@@ -62,8 +62,9 @@ export const aboutSection = {
     "With a deep respect for traditional wear and an eye for detail, we deliver pieces that look, feel and drape their very best.",
   ].join("\n\n"),
   image_alt: "Woman carefully pleating a cream and gold silk saree",
-  badge_value: "12+",
-  badge_label: "Years of Care",
+  // Badge on the photo corner: left empty, so it stays hidden until the client fills it in
+  badge_value: null,
+  badge_label: null,
 };
 
 // icon = lucide-react icon name, picked from a list in the admin panel
@@ -181,15 +182,27 @@ export const footerSettings = {
   services_limit: 6,
   contact_title: "Contact",
   hours_short: "Mon–Sat 9 AM – 8 PM",
+  socials_title: "Follow Us",
   copyright_text: "© {year} Vastra Care. All rights reserved.",
 };
 
 // Placeholder profile links: replace with the real pages from the admin panel
 export const socialLinks = [
   { platform: "instagram", url: "https://www.instagram.com/" },
-  { platform: "facebook", url: "https://www.facebook.com/" },
   { platform: "youtube", url: "https://www.youtube.com/" },
+  { platform: "whatsapp", url: "https://wa.me/919790263322" },
+  { platform: "telegram", url: "https://t.me/+919790263322" },
 ];
+
+// Flash offer strip above the header: starts with the free pickup & delivery offer
+export const offerBar = {
+  enabled: true,
+  badge_text: "Flash Offer",
+  message: "FREE pickup & delivery within 5 km on orders above ₹1500 · Below ₹1500, just ₹100 service charge",
+  link_text: "Book Now",
+  link_url: "#contact",
+  ends_at: null,
+};
 
 // Email alerts start switched off; SMTP details are entered in the admin panel
 export const mailSettings = {

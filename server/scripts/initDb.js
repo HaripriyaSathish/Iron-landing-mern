@@ -38,7 +38,14 @@ async function seedAdmin() {
 
 try {
   for (const statement of schemaFor(db.dialect)) await db.query(statement);
-  for (const statement of migrationsFor(db.dialect)) await db.query(statement);
+  for (const statement of migrationsFor(db.dialect)) {
+    try {
+      await db.query(statement);
+    } catch (err) {
+      // Column already added on an earlier run
+      if (err.code !== "ER_DUP_FIELDNAME") throw err;
+    }
+  }
   console.log("✓ tables ready");
 
   await seedAdmin();
@@ -62,6 +69,7 @@ try {
   await seedSingle("contact_section", seed.contactSection);
   await seedSingle("footer_settings", seed.footerSettings);
   await seedList("social_links", seed.socialLinks);
+  await seedSingle("offer_bar", seed.offerBar);
   await seedSingle("mail_settings", seed.mailSettings);
   await seedSingle("music_settings", seed.musicSettings);
   await seedList("languages", seed.languages);

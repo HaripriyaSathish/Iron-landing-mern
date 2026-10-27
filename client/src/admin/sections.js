@@ -7,6 +7,7 @@ import {
   Languages,
   LayoutDashboard,
   LayoutTemplate,
+  Megaphone,
   MailCheck,
   MessageCircleHeart,
   MessageSquareQuote,
@@ -29,6 +30,7 @@ export const groups = [
     items: [
       { path: '/admin/branding', icon: Sparkles, title: 'Search & Branding', hint: 'Title, keywords & favicon' },
       { path: '/admin/menu', icon: Compass, title: 'Navbar & Menu', hint: 'Logo, links & top button' },
+      { path: '/admin/offer', icon: Megaphone, title: 'Flash Offer Banner', hint: 'Top strip for offers & free pickup' },
       { path: '/admin/quick-connect', icon: MessageCircleHeart, title: 'Floating Buttons', hint: 'Call, WhatsApp & email' },
       { path: '/admin/footer', icon: PanelBottom, title: 'Footer', hint: 'Intro, socials & copyright' },
       { path: '/admin/music', icon: Music, title: 'Background Music', hint: 'Soft music & play button' },

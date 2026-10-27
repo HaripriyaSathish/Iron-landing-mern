@@ -205,7 +205,23 @@ export const GROUPS = [
           ["services_title", "Services heading"],
           ["contact_title", "Contact heading"],
           ["hours_short", "Short hours"],
+          ["socials_title", "Social icons heading"],
           ["copyright_text", "Copyright line"],
+        ],
+      },
+    ],
+  },
+  {
+    id: "offer",
+    title: "Flash Offer",
+    sources: [
+      {
+        table: "offer_bar",
+        single: true,
+        fields: [
+          ["badge_text", "Badge"],
+          ["message", "Offer text", true],
+          ["link_text", "Button text"],
         ],
       },
     ],

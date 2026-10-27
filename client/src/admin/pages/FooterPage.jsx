@@ -26,6 +26,7 @@ const FIELDS = [
   'services_limit',
   'contact_title',
   'hours_short',
+  'socials_title',
   'copyright_text',
 ]
 const emptySocial = { platform: 'instagram', url: 'https://', is_active: true }
@@ -177,6 +178,9 @@ export default function FooterPage() {
                 <input className="input" value={form.hours_short} onChange={set('hours_short')} />
               </Field>
             </div>
+            <Field label="Heading above the social icons" hint="e.g. Follow Us. Leave empty to show the icons without a heading.">
+              <input className="input" value={form.socials_title} onChange={set('socials_title')} />
+            </Field>
             <Field label="Copyright line" hint={`Type {year} for the current year. Shows as: ${form.copyright_text.replaceAll('{year}', year)}`}>
               <input className="input" required value={form.copyright_text} onChange={set('copyright_text')} />
             </Field>
@@ -192,7 +196,7 @@ export default function FooterPage() {
         <div className="stack">
           <Card title="Social links" subtitle="The round icons under your intro.">
             {socials.length === 0 ? (
-              <EmptyState icon={PanelBottom} title="No social links" text="Add your Instagram, Facebook or YouTube." />
+              <EmptyState icon={PanelBottom} title="No social links" text="Add your Instagram, YouTube, WhatsApp or Telegram." />
             ) : (
               <ul className="list">
                 {socials.map((s, i) => {
@@ -255,7 +259,7 @@ export default function FooterPage() {
           }
         >
           <form id="social-form" onSubmit={saveSocial}>
-            <div className="type-picker type-picker--6">
+            <div className="type-picker type-picker--8">
               {Object.entries(SOCIALS).map(([key, { icon: Icon, label }]) => (
                 <button
                   key={key}
@@ -268,7 +272,10 @@ export default function FooterPage() {
                 </button>
               ))}
             </div>
-            <Field label="Profile link" hint="Open your profile in a browser and copy the address.">
+            <Field
+              label="Profile link"
+              hint={SOCIALS[editing.platform]?.hint ?? 'Open your profile in a browser and copy the address.'}
+            >
               <input
                 className="input"
                 required

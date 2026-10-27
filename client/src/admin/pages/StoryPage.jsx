@@ -155,7 +155,7 @@ export default function StoryPage() {
               <input className="input" value={form.image_alt} onChange={set('image_alt')} />
             </Field>
             <div className="row-2">
-              <Field label="Badge number" hint="e.g. 12+">
+              <Field label="Badge number" hint="e.g. 12+. Leave empty to hide the badge.">
                 <input className="input" value={form.badge_value} onChange={set('badge_value')} />
               </Field>
               <Field label="Badge text" hint="e.g. Years of Care">

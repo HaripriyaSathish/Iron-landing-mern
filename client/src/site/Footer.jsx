@@ -15,6 +15,7 @@ export default function Footer({ data }) {
             {logo?.url ? <img src={logo.url} alt={logo.alt || 'Iron Me Ka'} /> : <span>Iron Me Ka</span>}
           </a>
           {settings.about_text && <p>{settings.about_text}</p>}
+          {socials.length > 0 && settings.socials_title && <h3 className="footer__follow">{settings.socials_title}</h3>}
           {socials.length > 0 && (
             <div className="footer__socials">
               {socials.map((s) => {
