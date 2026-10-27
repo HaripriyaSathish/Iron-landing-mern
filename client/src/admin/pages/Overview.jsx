@@ -20,6 +20,7 @@ const ENDPOINTS = {
   '/admin/reviews': '/testimonials/admin',
   '/admin/contact': '/contact',
   '/admin/footer': '/footer/admin',
+  '/admin/follow-us': '/footer/admin',
   '/admin/email': '/mail-settings',
   '/admin/languages': '/languages/admin',
   '/admin/music': '/music/admin',
@@ -62,7 +63,9 @@ function summarize(path, data) {
       return { text: `${data.testimonials.filter((t) => t.is_active).length} reviews showing` }
     case '/admin/contact':
       return data.phone ? { text: `Calls go to ${data.phone}` } : { text: 'Phone number not set', warn: true }
-    case '/admin/footer': {
+    case '/admin/footer':
+      return { text: data.settings.copyright_text.replaceAll('{year}', new Date().getFullYear()) }
+    case '/admin/follow-us': {
       // Seeded links point at the platform home pages, not a real profile
       const generic = data.socials.filter((s) => /^https?:\/\/(www\.)?[^/]+\/?$/.test(s.url)).length
       return generic

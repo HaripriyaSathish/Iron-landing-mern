@@ -198,6 +198,20 @@ export const GROUPS = [
     ],
   },
   {
+    id: "follow-us",
+    title: "Follow Us",
+    sources: [
+      {
+        table: "footer_settings",
+        single: true,
+        fields: [
+          ["socials_title", "Main heading"],
+          ["socials_text", "Line under the heading", true],
+        ],
+      },
+    ],
+  },
+  {
     id: "footer",
     title: "Footer",
     sources: [
@@ -210,8 +224,6 @@ export const GROUPS = [
           ["services_title", "Services heading"],
           ["contact_title", "Contact heading"],
           ["hours_short", "Short hours"],
-          ["socials_title", "Social section heading"],
-          ["socials_text", "Social section line", true],
           ["copyright_text", "Copyright line"],
         ],
       },
@@ -266,10 +278,11 @@ export const GROUPS = [
   },
 ];
 
-// table → translatable columns
-const FIELDS_BY_TABLE = Object.fromEntries(
-  GROUPS.flatMap((g) => g.sources).map((s) => [s.table, s.fields.map(([field]) => field)])
-);
+// table → translatable columns (a table may feed more than one group, e.g. footer_settings → Follow Us + Footer)
+const FIELDS_BY_TABLE = {};
+for (const { table, fields } of GROUPS.flatMap((g) => g.sources)) {
+  FIELDS_BY_TABLE[table] = [...(FIELDS_BY_TABLE[table] ?? []), ...fields.map(([field]) => field)];
+}
 
 export const isTranslatable = (entity, field) => FIELDS_BY_TABLE[entity]?.includes(field) ?? false;
 

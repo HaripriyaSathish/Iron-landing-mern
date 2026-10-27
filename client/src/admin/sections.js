@@ -17,6 +17,7 @@ import {
   PhoneCall,
   Route,
   Settings2,
+  Share2,
   Shirt,
   Sparkles,
 } from 'lucide-react'
@@ -33,7 +34,7 @@ export const groups = [
       { path: '/admin/menu', icon: Compass, title: 'Navbar & Menu', hint: 'Logo, links & top button' },
       { path: '/admin/offer', icon: Megaphone, title: 'Flash Offer Banner', hint: 'Top strip for offers & free pickup' },
       { path: '/admin/quick-connect', icon: MessageCircleHeart, title: 'Floating Buttons', hint: 'Call, WhatsApp & email' },
-      { path: '/admin/footer', icon: PanelBottom, title: 'Footer', hint: 'Follow Us links, intro & copyright' },
+      { path: '/admin/footer', icon: PanelBottom, title: 'Footer', hint: 'Intro, links & copyright' },
       { path: '/admin/music', icon: Music, title: 'Background Music', hint: 'Soft music & play button' },
       { path: '/admin/languages', icon: Languages, title: 'Languages', hint: 'Tamil, French & more' },
       { path: '/admin/email', icon: MailCheck, title: 'Email Alerts', hint: 'SMTP & password alerts' },
@@ -53,6 +54,7 @@ export const groups = [
       { path: '/admin/process', icon: Route, title: 'How It Works', hint: 'Steps from booking to ready' },
       { path: '/admin/reviews', icon: MessageSquareQuote, title: 'Testimonials', hint: 'Reviews & star ratings' },
       { path: '/admin/contact', icon: PhoneCall, title: 'Contact & Booking', hint: 'Phone, map & hours' },
+      { path: '/admin/follow-us', icon: Share2, title: 'Follow Us', hint: 'Instagram, YouTube, WhatsApp & more' },
     ],
   },
 ]

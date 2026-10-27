@@ -18,6 +18,7 @@ import ProcessPage from './pages/ProcessPage'
 import TestimonialsPage from './pages/TestimonialsPage'
 import ContactPage from './pages/ContactPage'
 import FooterPage from './pages/FooterPage'
+import FollowUsPage from './pages/FollowUsPage'
 import EmailPage from './pages/EmailPage'
 import LanguagesPage from './pages/LanguagesPage'
 import MusicPage from './pages/MusicPage'
@@ -52,6 +53,7 @@ export default function AdminApp() {
             <Route path="reviews" element={<TestimonialsPage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="footer" element={<FooterPage />} />
+            <Route path="follow-us" element={<FollowUsPage />} />
             <Route path="email" element={<EmailPage />} />
             <Route path="languages" element={<LanguagesPage />} />
             <Route path="music" element={<MusicPage />} />
